@@ -10,7 +10,7 @@ m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
 n.addCommand("Write PNG", "pipeline.customWrite('png')", index=1, icon="Write.png")
-#n.addCommand("Write EXR Review", "pipeline.customWrite('exr', 'review')", index=2, icon="Write.png")
+n.addCommand("Write EXR Review", "pipeline.customWrite('exr', 'review')", index=2, icon="Write.png")
 n.addCommand("Write EXR", "pipeline.customWrite('exr')", index=3, icon="Write.png")
 #n.addSeparator()
 #n.addCommand("Write EXR Editorial Alpha", "pipeline.customWrite('exr', 'editorial')", index=4, icon="Write.png")
@@ -58,9 +58,9 @@ m.addCommand("&Node/Set Project Frame Range From Node", setProjectFrameRange.cal
 
 m=menubar.addMenu("&Render")
 #Render Manager - SMEDGE
-#import SmedgeRender
-#m.addSeparator(index=5)
-#m.addCommand("Submit to Smedge", "SmedgeRender.SmedgeRender()", "^F5", index=6)
+import SmedgeRender
+m.addSeparator(index=5)
+m.addCommand("Submit to Smedge", "SmedgeRender.SmedgeRender()", "^F5", index=6)
 
 m = menubar.addMenu("Import and Export")
 # Nuke2Maya

@@ -18,7 +18,7 @@ import sendToAvconv
 # WRITE NODE
 # use this instead of nuke.addBeforeRender so that artists can remove it locally if needed
 nuke.knobDefault('Write.beforeRender', 'pipeline.createWriteDir()')
-nuke.knobDefault('Write.afterRender', 'sendToAvconv.sendToAvconv()')
+#nuke.knobDefault('Write.afterRender', 'sendToAvconv.sendToAvconv()')
 
 # ROOT
 nuke.knobDefault('Root.project_directory', '[python {nuke.script_directory()}]/../')
@@ -29,9 +29,9 @@ nuke.knobDefault('Root.fps', '23.976')
 
 # LUTs
 #AA 2
-#nuke.knobDefault('Viewer.viewerProcess', 'rec709')
-#nuke.knobDefault('monitorLut', 'rec709')
-#nuke.knobDefault('floatLut', 'rec709')
+nuke.knobDefault('Viewer.viewerProcess', 'rec709')
+nuke.knobDefault('monitorLut', 'rec709')
+nuke.knobDefault('floatLut', 'rec709')
 
 # OTHER
 # ////////////////////////////////////////////////////////////////////////////////

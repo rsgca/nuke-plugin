@@ -60,15 +60,6 @@ def customWrite(extension = 'exr', destination = 'server'):
 			w.knob("file").setValue(shotDir + 'Comp/' + parentDir + '/' + filename + printf + '.' + extension)
 		w.knob("compression").setValue("0")
 		w.knob("colorspace").setValue("rec709")
-	#DPX
-	if extension == "dpx":
-		if destination == "review":
-			w.knob("file").setValue(reviewDir + 'shots/' + episodeName + '/' + shotName + '/Comp/' + parentDir + '/' + filename + printf + '.' + 'dpx')
-		elif destination == "editorial":
-			w.knob("file").setValue(editorialDir + 'Planes/'  + shotName + '/EXR/' + parentDir + '/' + filename + printf + '.' + 'dpx')
-			w.knob("channels").setValue("rgba")
-		else:
-			w.knob("file").setValue(shotDir + 'Comp/' + parentDir + '/' + filename + printf + '.' + extension)
 	# PNG
 	elif extension == "png":
 		if destination == "editorial":
@@ -99,38 +90,36 @@ def createWriteDir():
 		pass
 
 # FILENAME FIX
-# Arctic Air
 
-#def filenameFix(filename):
-#	if nuke.env['WIN32']:
-#		filename = filename.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace( "/Volumes/Wilde/", "Y:/" ).replace("/media/Wilde/", "Y:/").replace( "/Volumes/Elements/", "X:/" ).replace("/media/Elements/", "X:/")
-#	elif nuke.env['MACOS']:
-#		filename = filename.replace( "Z:/", "/Volumes/Projects/" ).replace( "/media/Projects/", "/Volumes/Projects/" ).replace( "Y:/", "/Volumes/Wilde/" ).replace( "/media/Wilde/", "/Volumes/Wilde/" ).replace( "X:/", "/Volumes/Elements/" ).replace( "/media/Elements/", "/Volumes/Elements/" )
-#	elif nuke.env['LINUX']:
-#		filename = filename.replace("Z:/", "/media/Projects/").replace("/Volumes/Projects/", "/media/Projects/").replace("Y:/", "/media/Wilde/").replace("/Volumes/Wilde/", "/media/Wilde/").replace("X:/", "/media/Elements/").replace("/Volumes/Elements/", "/media/Elements/")
-#	return filename
+def filenameFix(filename):
+	if nuke.env['WIN32']:
+		filename = filename.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace( "/Volumes/Wilde/", "Y:/" ).replace("/media/Wilde/", "Y:/").replace( "/Volumes/Elements/", "X:/" ).replace("/media/Elements/", "X:/")
+	elif nuke.env['MACOS']:
+		filename = filename.replace( "Z:/", "/Volumes/Projects/" ).replace( "/media/Projects/", "/Volumes/Projects/" ).replace( "Y:/", "/Volumes/Wilde/" ).replace( "/media/Wilde/", "/Volumes/Wilde/" ).replace( "X:/", "/Volumes/Elements/" ).replace( "/media/Elements/", "/Volumes/Elements/" )
+	elif nuke.env['LINUX']:
+		filename = filename.replace("Z:/", "/media/Projects/").replace("/Volumes/Projects/", "/media/Projects/").replace("Y:/", "/media/Wilde/").replace("/Volumes/Wilde/", "/media/Wilde/").replace("X:/", "/media/Elements/").replace("/Volumes/Elements/", "/media/Elements/")
+	return filename
 
 # ADD FAVOURITE DIR
-# Arctic Air
 
-#project = 'Arctic_Air_2'
-#vol = ''
-#if nuke.env['LINUX']:
-#	vol = '/media/Projects/'
-#	vol2 = '/media/Elements/'
-#	vol3 = '/media/Projects/Arctic_Air_2/editorial/from_vfx/'
-#elif nuke.env['MACOS']:
-#	vol = '/Volumes/Projects/'
-#	vol2 = '/Volumes/Elements/'
-#	vol3 = '/Volumes/Projects/Arctic_Air_2/editorial/from_vfx/'
-#elif nuke.env['WIN32']:
-#	vol = 'Z:/'
-#	vol2 = 'X:/'
-#	vol3 = 'Z:/Projects/Arctic_Air_2/editorial/from_vfx/'
+project = 'Arctic_Air_2'
+vol = ''
+if nuke.env['LINUX']:
+	vol = '/media/Projects/'
+	vol2 = '/media/Elements/'
+	vol3 = '/media/Projects/Arctic_Air_2/editorial/from_vfx/'
+elif nuke.env['MACOS']:
+	vol = '/Volumes/Projects/'
+	vol2 = '/Volumes/Elements/'
+	vol3 = '/Volumes/Projects/Arctic_Air_2/editorial/from_vfx/'
+elif nuke.env['WIN32']:
+	vol = 'Z:/'
+	vol2 = 'X:/'
+	vol3 = 'Z:/Projects/Arctic_Air_2/editorial/from_vfx/'
 
-#nuke.addFavoriteDir('Project', vol)
-#nuke.addFavoriteDir('Shots', vol + project + '/shots/')
-#nuke.addFavoriteDir('Assets', vol + project + '/assets/')
-#nuke.addFavoriteDir('Elements', vol2)
-#nuke.addFavoriteDir('Editorial', vol3)
+nuke.addFavoriteDir('Project', vol)
+nuke.addFavoriteDir('Shots', vol + project + '/shots/')
+nuke.addFavoriteDir('Assets', vol + project + '/assets/')
+nuke.addFavoriteDir('Elements', vol2)
+nuke.addFavoriteDir('Editorial', vol3)
 
