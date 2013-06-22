@@ -1,0 +1,365 @@
+###
+### dg ©2006
+### diogogirondi@gmail.com
+### FieldsKit v4.3
+### Nuke 4.5.27
+###
+version 4.5027
+Gizmo {
+ inputs 1
+ tile_color 0xbff30900
+ label "@s-2;\[value convert]\n@S+3 @i;v4.3"
+ help "FieldsKit gives you the basic set of tools to deal with interlaced sequences.\nFeel free to contact me at diogogirondi@gmail.com"
+ addUserKnob {20 "" Parameters}
+ addUserKnob {26 "" "@b;Options"}
+ addUserKnob {4 dom Dominance: M {"Upper (Odd - Field 1)" "Lower (Even - Field 2)"}}
+ addUserKnob {4 convert Convert: M {"Remove Field (Half Res.)" "Remove Field (Duplicate)" "Remove Field (Interpolate)" "Merge Fields (Interpolate)" "Deinterlace (Duplicate)" Interlace "Invert Dominance"}}
+ addUserKnob {7 merge "Merge Fields Mix:" R 0 1}
+ merge 0.5
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 3
+  ypos -212
+ }
+set N4e60cc8 [stack 0]
+push $N4e60cc8
+add_layer {fieldsmasks fieldsmasks.Dominace fieldsmasks.Upper fieldsmasks.Lower}
+ Expression {
+  temp_name0 fdom
+  temp_expr0 parent.dom==0?!fmod(y,2):fmod(y,2)
+  temp_name1 lower
+  temp_expr1 fmod(y,2)
+  temp_name2 upper
+  temp_expr2 !fmod(y,2)
+  channel0 {fieldsmasks.Dominace -fieldsmasks.Upper -fieldsmasks.Lower}
+  expr0 fdom
+  channel1 {-fieldsmasks.Dominace fieldsmasks.Upper -fieldsmasks.Lower}
+  expr1 upper
+  channel2 {-fieldsmasks.Dominace -fieldsmasks.Upper fieldsmasks.Lower}
+  expr2 lower
+  channel3 none
+  name Set_Fields
+  label Masks
+  xpos 3
+  ypos -141
+ }
+set N4e14cd8 [stack 0]
+ Dot {
+  name Dot2
+  xpos 609
+  ypos -130
+ }
+set N80c47a0 [stack 0]
+push $N80c47a0
+ TransformMasked {
+  translate {0 1}
+  center {320 240}
+  mask fieldsmasks.Lower
+  name Lower
+  xpos 642
+  ypos -44
+ }
+ Copy {
+  inputs 2
+  from0 fieldsmasks.Dominace
+  to0 fieldsmasks.Dominace
+  from1 fieldsmasks.Upper
+  to1 fieldsmasks.Upper
+  from2 fieldsmasks.Lower
+  to2 fieldsmasks.Lower
+  name Copy2
+  xpos 642
+  ypos -4
+ }
+ Premult {
+  channels all
+  alpha fieldsmasks.Lower
+  name Premult4
+  xpos 642
+  ypos 64
+ }
+push $N80c47a0
+push $N80c47a0
+ TransformMasked {
+  translate {0 -1}
+  center {320 240}
+  mask fieldsmasks.Upper
+  name Upper
+  xpos 516
+  ypos -44
+ }
+ Copy {
+  inputs 2
+  from0 fieldsmasks.Dominace
+  to0 fieldsmasks.Dominace
+  from1 fieldsmasks.Upper
+  to1 fieldsmasks.Upper
+  from2 fieldsmasks.Lower
+  to2 fieldsmasks.Lower
+  name Copy1
+  xpos 516
+  ypos -4
+ }
+ Premult {
+  channels all
+  alpha fieldsmasks.Upper
+  name Premult3
+  xpos 516
+  ypos 64
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  label "Invert\nDominance"
+  xpos 579
+  ypos 139
+ }
+ Dot {
+  name Dot3
+  xpos 613
+  ypos 350
+ }
+push $N4e14cd8
+ TimeOffset {
+  time_offset {{input.first_frame*-1}}
+  name TimeOffset1
+  xpos 119
+  ypos -37
+ }
+set N76fdf38 [stack 0]
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{input.last_frame}}
+  name FrameRange3
+  xpos 256
+  ypos -37
+ }
+set N7f880b0 [stack 0]
+ TimeWarp {
+  lookup {{(floor((frame+1)*2))-1 C x5627 5627}}
+  name TW_nonDominant
+  tile_color 0xb0a45d00
+  xpos 256
+  ypos -11
+  hide_input true
+ }
+set N7beac20 [stack 0]
+push $N7f880b0
+ TimeWarp {
+  lookup {{(floor((frame+1)*2))-2 C x5627 5627}}
+  name TW_Dominant
+  tile_color 0xb0a45d00
+  xpos 382
+  ypos -11
+  hide_input true
+ }
+set N77cd138 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.dom}}
+  name Switch2
+  xpos 382
+  ypos 47
+ }
+ Premult {
+  channels all
+  alpha fieldsmasks.Lower
+  name Premult1
+  xpos 382
+  ypos 73
+ }
+push $N77cd138
+push $N7beac20
+ Switch {
+  inputs 2
+  which {{parent.dom i}}
+  name Switch1
+  xpos 256
+  ypos 46
+ }
+ Premult {
+  channels all
+  alpha fieldsmasks.Upper
+  name Premult2
+  xpos 256
+  ypos 72
+ }
+ Merge2 {
+  inputs 2
+  name Interlace
+  label Interlace
+  xpos 311
+  ypos 144
+ }
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{int(input.last_frame/2)}}
+  name FrameRange2
+  xpos 311
+  ypos 184
+ }
+ TimeOffset {
+  time_offset {{Set_Fields.first_frame}}
+  name TimeOffset3
+  xpos 311
+  ypos 210
+ }
+push $N76fdf38
+ TimeWarp {
+  lookup {{int(floor(frame)/2)}}
+  name TimeWarp1
+  xpos 119
+  ypos -11
+ }
+ FrameRange {
+  first_frame {{input.first_frame i}}
+  last_frame {{input.last_frame*2+1}}
+  name FrameRange1
+  xpos 119
+  ypos 15
+ }
+ Invert {
+  channels {fieldsmasks.Dominace -fieldsmasks.Upper -fieldsmasks.Lower}
+  name Invert1
+  xpos 119
+  ypos 41
+  disable {{"abs(fmod(frame, 2)-1)"}}
+ }
+ TransformMasked {
+  translate {0 {"abs(fmod(frame, 2)-(parent.dom==0?0:1))==0?-1:1" i}}
+  center {360 243}
+  mask fieldsmasks.Dominace
+  name Deinterlace
+  xpos 119
+  ypos 81
+ }
+ TimeOffset {
+  time_offset {{Set_Fields.first_frame}}
+  name TimeOffset2
+  xpos 119
+  ypos 121
+ }
+push $N4e14cd8
+ FieldSelect {
+  field Even
+  name Even
+  label Keep
+  xpos -317
+  ypos -36
+ }
+set N76956a0 [stack 0]
+push $N4e14cd8
+ FieldSelect {
+  name Odd
+  label Keep
+  xpos -427
+  ypos -36
+ }
+set N7ff7da0 [stack 0]
+ Dissolve {
+  inputs 2
+  which {{parent.merge}}
+  name Merge
+  xpos 8
+  ypos -36
+  hide_input true
+ }
+ Reformat {
+  to_format false
+  box_width 640
+  box_height 480
+  box_pixel_aspect 0.9
+  to_scale true
+  scale {1 2}
+  resize distort
+  crop true
+  name Reformat1
+  xpos 8
+  ypos 4
+ }
+push $N76956a0
+push $N7ff7da0
+ Switch {
+  inputs 2
+  which {{parent.dom}}
+  name dominance
+  label "Only here\ndue a bug\nin\nSelectField"
+  xpos -317
+  ypos 53
+ }
+set N7c969f8 [stack 0]
+push $N7c969f8
+ CopyBBox {
+  inputs 2
+  name CopyBBox2
+  xpos -317
+  ypos 135
+ }
+ Reformat {
+  to_format false
+  to_scale true
+  crop true
+  name Reformat2
+  xpos -317
+  ypos 161
+ }
+set N7809e88 [stack 0]
+ Reformat {
+  to_format false
+  box_width 640
+  box_height 480
+  box_pixel_aspect 0.9
+  to_scale true
+  scale {1 2}
+  resize distort
+  crop true
+  name Remove_Field
+  label Interpolate
+  xpos -101
+  ypos -37
+  hide_input true
+ }
+push $N4e14cd8
+ TransformMasked {
+  translate {0 {parent.dom==0?-1:1}}
+  center {360 243}
+  mask fieldsmasks.Dominace
+  name Duplicate
+  xpos -211
+  ypos -38
+ }
+push $N7809e88
+ Dot {
+  name Dot1
+  xpos -283
+  ypos 350
+ }
+ Switch {
+  inputs 7
+  which {{parent.convert}}
+  name Convert
+  xpos 8
+  ypos 346
+ }
+ Remove {
+  channels fieldsmasks
+  name Remove1
+  xpos 8
+  ypos 372
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 8
+  ypos 412
+  hide_input true
+  disable {{parent.convert!=0?0:1}}
+ }
+ Output {
+  name Output1
+  xpos 8
+  ypos 506
+ }
+end_group

@@ -1,0 +1,83 @@
+#! C:/Program Files/Nuke5.1v3/Nuke5.1.exe -nx
+version 5.1300
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {26 "" l "@b;Edge Erode / Blur"}
+ addUserKnob {41 erodesize l "Erode Size" T EdgeDetectWrapper1.erodesize}
+ addUserKnob {41 PreBlurSize l "PreBlur Size" T EdgeDetectWrapper1.blursize}
+ addUserKnob {41 PostBlurSize l "PostBlur Size" T Blur1.size}
+ addUserKnob {41 value l "Opacity / Intensity" T Multiply1.value}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l "@b;Grain Size"}
+ addUserKnob {41 red_size l red T Grain2_1.red_size}
+ addUserKnob {41 green_size l green T Grain2_1.green_size}
+ addUserKnob {41 blue_size l blue T Grain2_1.blue_size}
+ addUserKnob {26 "" l "@b;Irregularity"}
+ addUserKnob {41 red_i l red T Grain2_1.red_i}
+ addUserKnob {41 green_i l green T Grain2_1.green_i}
+ addUserKnob {41 blue_i l blue T Grain2_1.blue_i}
+ addUserKnob {26 "" l "@b;Intensity"}
+ addUserKnob {41 red_m l red T Grain2_1.red_m}
+ addUserKnob {41 green_m l green T Grain2_1.green_m}
+ addUserKnob {41 blue_m l blue T Grain2_1.blue_m}
+ addUserKnob {41 black T Grain2_1.black}
+ addUserKnob {41 minimum T Grain2_1.minimum}
+ addUserKnob {26 "" l "@b;Mask"}
+ addUserKnob {41 maskgrain l "Apply only through alpha" T Grain2_1.maskgrain}
+ addUserKnob {41 maskinvert l "Invert alpha" T Grain2_1.maskinvert}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -265
+  ypos -163
+ }
+ Dot {
+  name Dot1
+  xpos -231
+  ypos -96
+ }
+set N56d3cf0 [stack 0]
+ EdgeDetectWrapper {
+  edgedetector simple
+  edgelayer {rgba.alpha none none rgba.alpha}
+  erodesize -3
+  blursize -3
+  name EdgeDetectWrapper1
+  xpos -476
+  ypos -41
+ }
+ Blur {
+  size 10
+  name Blur1
+  xpos -476
+  ypos 30
+ }
+ Multiply {
+  name Multiply1
+  xpos -476
+  ypos 96
+ }
+push $N56d3cf0
+ Grain2 {
+  name Grain2_1
+  label "Kodak 5248"
+  xpos -343
+  ypos 34
+  seed {{parent.parent.parent}}
+  presets {{parent.parent.parent.pa}}
+  maskgrain false
+ }
+push $N56d3cf0
+ Merge2 {
+  inputs 2+1
+  name Merge2
+  xpos -265
+  ypos 146
+ }
+ Output {
+  name Output1
+  xpos -265
+  ypos 247
+ }
+end_group

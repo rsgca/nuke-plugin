@@ -1,0 +1,676 @@
+#! /Applications/Nuke6.3v4/NukeX6.3v4.app/../Nuke6.3v4.app/Contents/MacOS/Nuke6.3v4 -nx
+version 6.3 v4
+Gizmo {
+ tile_color 0x910c00ff
+ note_font Verdana
+ note_font_color 0xff
+ mapsize {0.15 0.15}
+ addUserKnob {20 BurnIn}
+ addUserKnob {6 BurnToggle_ctrl l "Show Burn Ins" t "Check to display shot meta inforamtion." +STARTLINE}
+ BurnToggle_ctrl true
+ addUserKnob {6 GridToggle_ctrl l "Show Rulers" t "Check to display 10x10 rulers" -STARTLINE}
+ GridToggle_ctrl true
+ addUserKnob {1 Filename_ctrl l Filename t "Defaults to the nuke script name."}
+ Filename_ctrl "\[file rootname \[file tail \[value root.name]]]"
+ addUserKnob {1 Description_ctrl l Description t "Add short info about the shot. This text is centred."}
+ addUserKnob {3 SlateVisibleFrame_ctrl l "Slate Frame" t "The overlays are hidden on this frame."}
+ SlateVisibleFrame_ctrl 40
+ addUserKnob {20 Setup}
+ addUserKnob {2 Font_ctrl l Font}
+ Font_ctrl "\[getenv NUKE_PATH \[getenv HOME]/.nuke]/fonts/FreeSans.ttf"
+ addUserKnob {7 GridOpacity_ctrl l "Ruler Opacity"}
+ GridOpacity_ctrl 0.4
+ addUserKnob {3 BurnY_ctrl l "y Position"}
+ BurnY_ctrl {{"((\[value format.height])/2)-((\[value format.width]/1.77)/2)+30"}}
+ addUserKnob {26 ""}
+ addUserKnob {26 Author -STARTLINE T "Richard Greenwood"}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos 70
+  ypos -369
+ }
+add_layer {rgba redguard1.glow}
+ Text {
+  message ""
+  font "\[value Font_ctrl]"
+  size 40
+  translate {100 100}
+  name DefaultText
+  tile_color 0xff0000ff
+  xpos 70
+  ypos -297
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 730
+  ypos -465
+ }
+ Dot {
+  name Dot5
+  xpos 764
+  ypos -414
+ }
+set N588c8470 [stack 0]
+ Dot {
+  name Dot3
+  xpos 874
+  ypos -414
+ }
+ Dot {
+  name Dot4
+  xpos 874
+  ypos 1338
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 70
+  ypos 927
+ }
+ Text {
+  message "\[ value Filename_ctrl]"
+  font "\[value DefaultText.font]"
+  size 32
+  Transform 1
+  box {0 0 0 -10}
+  translate {30 {"\[value BurnY_ctrl]" i}}
+  name Filename
+  xpos 70
+  ypos 1023
+ }
+ set C588d5600 [stack 0]
+ Text {
+  message "\[value Description_ctrl]"
+  font "\[value DefaultText.font]"
+  size 32
+  xjustify center
+  Transform 1
+  box {0 0 0 -10}
+  translate {{width/2 i} {"\[value BurnY_ctrl]" i}}
+  center {960 540}
+  name Description
+  xpos 70
+  ypos 1047
+ }
+ set C588df9b0 [stack 0]
+ Text {
+  message "\[format %.3d \[expr \[frame]]]"
+  font "\[value DefaultText.font]"
+  size {{parent.Filename.size.main i}}
+  xjustify right
+  Transform 1
+  translate {{width-30 i} {"\[value BurnY_ctrl]" i}}
+  name Frame
+  xpos 70
+  ypos 1071
+ }
+ set C588ea080 [stack 0]
+ Invert {
+  unpremult rgba.alpha
+  name Invert2
+  xpos 180
+  ypos 1066
+ }
+ Dilate {
+  size 2
+  name Dilate2
+  xpos 180
+  ypos 1114
+ }
+ Blur {
+  size 4
+  name Blur3
+  xpos 180
+  ypos 1162
+ }
+clone $C588d5600 {
+  xpos 290
+  ypos 1167
+  selected false
+ }
+clone $C588df9b0 {
+  xpos 290
+  ypos 1191
+  selected false
+ }
+clone $C588ea080 {
+  xpos 290
+  ypos 1215
+  selected false
+ }
+ Reformat {
+  name Reformat3
+  xpos 290
+  ypos 1263
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant3
+  xpos 290
+  ypos -489
+ }
+ Text {
+  message "a\n"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_0
+  xpos 290
+  ypos -297
+ }
+ set C5ac38dd0 [stack 0]
+ Text {
+  message b
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_1
+  xpos 290
+  ypos -273
+ }
+ set C5ac433b0 [stack 0]
+ Text {
+  message c
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_2
+  xpos 290
+  ypos -249
+ }
+ set C5ac4db50 [stack 0]
+ Text {
+  message d
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_3
+  xpos 290
+  ypos -225
+ }
+ set C5ac582f0 [stack 0]
+ Text {
+  message e
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 864} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_4
+  xpos 290
+  ypos -201
+ }
+ set C5ac62aa0 [stack 0]
+ Text {
+  message f
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_5
+  xpos 290
+  ypos -177
+ }
+ set C5ac6d260 [stack 0]
+ Text {
+  message g
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_6
+  xpos 290
+  ypos -153
+ }
+ set C5ac77a00 [stack 0]
+ Text {
+  message h
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_7
+  xpos 290
+  ypos -129
+ }
+ set C5ac821d0 [stack 0]
+ Text {
+  message i
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_8
+  xpos 290
+  ypos -105
+ }
+ set C5ac8c970 [stack 0]
+ Text {
+  message j
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {{"(format.width/10/2)+(format.width/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 10} {format.height-10 i}}
+  center {960 540}
+  name axis_label_x_9
+  xpos 290
+  ypos -81
+ }
+ set C5ac97110 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_0
+  xpos 290
+  ypos -33
+ }
+ set C5aca18e0 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_1
+  xpos 290
+  ypos -9
+ }
+ set C5acac020 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_2
+  xpos 290
+  ypos 15
+ }
+ set C5acb6690 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_3
+  xpos 290
+  ypos 39
+ }
+ set C5acc0d10 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_4
+  xpos 290
+  ypos 63
+ }
+ set C5accb3b0 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_5
+  xpos 290
+  ypos 87
+ }
+ set C5acd5c20 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_6
+  xpos 290
+  ypos 111
+ }
+ set C5ace0190 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_7
+  xpos 290
+  ypos 135
+ }
+ set C5acea820 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_8
+  xpos 290
+  ypos 159
+ }
+ set C5acf4e90 [stack 0]
+ Text {
+  message "\[expr \[lrange \[split \[value this.name] \"_\"] end end] +1]"
+  font "\[value DefaultText.font]"
+  size 18
+  yjustify top
+  Transform 1
+  box {0 0 0 -10}
+  translate {10 {"format.height-(format.height/10/2)-(format.height/10)*\[expr \[lrange \[split \[value this.name] \"_\"] end end]]" i x1 1070}}
+  center {960 540}
+  name axis_label_y_9
+  xpos 290
+  ypos 183
+ }
+ set C5ad03490 [stack 0]
+ Invert {
+  unpremult rgba.alpha
+  name Invert1
+  xpos 290
+  ypos 250
+ }
+ Dilate {
+  size 3
+  name Dilate1
+  xpos 290
+  ypos 298
+ }
+ Blur {
+  size 6
+  name Blur1
+  xpos 290
+  ypos 346
+ }
+clone $C5ac38dd0 {
+  xpos 290
+  ypos 423
+  selected false
+ }
+clone $C5ac433b0 {
+  xpos 290
+  ypos 447
+  selected false
+ }
+clone $C5ac4db50 {
+  xpos 290
+  ypos 471
+  selected false
+ }
+clone $C5ac582f0 {
+  xpos 290
+  ypos 495
+  selected false
+ }
+clone $C5ac62aa0 {
+  xpos 290
+  ypos 519
+  selected false
+ }
+clone $C5ac6d260 {
+  xpos 290
+  ypos 543
+  selected false
+ }
+clone $C5ac77a00 {
+  xpos 290
+  ypos 567
+  selected false
+ }
+clone $C5ac821d0 {
+  xpos 290
+  ypos 591
+  selected false
+ }
+clone $C5ac8c970 {
+  xpos 290
+  ypos 615
+  selected false
+ }
+clone $C5ac97110 {
+  xpos 290
+  ypos 639
+  selected false
+ }
+clone $C5aca18e0 {
+  xpos 290
+  ypos 687
+  selected false
+ }
+clone $C5acac020 {
+  xpos 290
+  ypos 711
+  selected false
+ }
+clone $C5acb6690 {
+  xpos 290
+  ypos 735
+  selected false
+ }
+clone $C5acc0d10 {
+  xpos 290
+  ypos 759
+  selected false
+ }
+clone $C5accb3b0 {
+  xpos 290
+  ypos 783
+  selected false
+ }
+clone $C5acd5c20 {
+  xpos 290
+  ypos 807
+  selected false
+ }
+clone $C5ace0190 {
+  xpos 290
+  ypos 831
+  selected false
+ }
+clone $C5acea820 {
+  xpos 290
+  ypos 855
+  selected false
+ }
+clone $C5acf4e90 {
+  xpos 290
+  ypos 879
+  selected false
+ }
+clone $C5ad03490 {
+  xpos 290
+  ypos 903
+  selected false
+ }
+ Dot {
+  name Dot11
+  xpos 324
+  ypos 1074
+ }
+push $N588c8470
+ Shuffle {
+  alpha black
+  name Shuffle2
+  xpos 730
+  ypos -369
+ }
+ Dot {
+  name Dot9
+  xpos 764
+  ypos 834
+ }
+set N5adfa690 [stack 0]
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 620
+  ypos 831
+ }
+set N5ae01220 [stack 0]
+ Crop {
+  box {30 {box.x i} {"format.width-\[value this.x]" i} {"format.height-\[value this.y]" i x1 1060}}
+  name Crop1
+  xpos 620
+  ypos 879
+ }
+ Grade {
+  channels alpha
+  name Grade1
+  xpos 620
+  ypos 922
+ }
+ Dot {
+  name Dot1
+  xpos 654
+  ypos 978
+ }
+set N5ae18510 [stack 0]
+ Dot {
+  name Dot2
+  xpos 654
+  ypos 1002
+ }
+push $N5ae18510
+push $N5ae01220
+ Dot {
+  name Dot6
+  xpos 544
+  ypos 834
+ }
+ Grid {
+  inputs 1+1
+  opacity {{GridOpacity_ctrl i}}
+  invert_mask true
+  translate {1 -1}
+  color 0
+  color0 1
+  p0 {1577 384}
+  name Grid1
+  xpos 510
+  ypos 975
+ }
+ Grid {
+  inputs 1+1
+  opacity {{parent.Grid1.opacity i}}
+  invert_mask true
+  name Grid2
+  xpos 510
+  ypos 999
+ }
+push $N5adfa690
+ Dot {
+  name Dot8
+  xpos 764
+  ypos 1050
+ }
+ Switch {
+  inputs 2
+  which {{GridToggle_ctrl i}}
+  name Switch1
+  xpos 510
+  ypos 1071
+ }
+ Merge2 {
+  inputs 2
+  mix {{"GridToggle_ctrl*\[value Grid1.opacity]" i}}
+  name Merge1
+  xpos 510
+  ypos 1119
+ }
+ Merge2 {
+  inputs 2
+  mix {{"\[value BurnToggle_ctrl]==1 && \[value SlateVisibleFrame_ctrl]!=\[frame]" i}}
+  name Merge3
+  xpos 510
+  ypos 1263
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos 510
+  ypos 1359
+ }
+ Output {
+  name Output1
+  xpos 510
+  ypos 1407
+ }
+ Viewer {
+  frame 26
+  input_process false
+  name Viewer1
+  xpos 400
+  ypos 1407
+ }
+end_group

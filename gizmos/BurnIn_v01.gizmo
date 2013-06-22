@@ -1,0 +1,122 @@
+#! /usr/local/Nuke6.3v2/Nuke6.3 -nx
+version 6.3 v2
+Gizmo {
+ tile_color 0x910c00ff
+ note_font_color 0xff
+ addUserKnob {20 BurnIn}
+ addUserKnob {6 BurnToggle_ctrl l "Show Burn Ins" +STARTLINE}
+ BurnToggle_ctrl true
+ addUserKnob {1 Filename_ctrl l Filename}
+ Filename_ctrl "\[file rootname \[file tail \[value root.name]]]"
+ addUserKnob {2 Font_ctrl l Font}
+ Font_ctrl "\[getenv NUKE_PATH \[getenv HOME]/.nuke]/fonts/FreeSans.ttf"
+ addUserKnob {3 SlateVisibleFrame_ctrl l "Slate Frame"}
+ SlateVisibleFrame_ctrl 40
+ addUserKnob {3 BurnY_ctrl l "y Position" -STARTLINE}
+ BurnY_ctrl {{"((\[value format.height])/2)-((\[value format.width]/1.77)/2)+30"}}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 Author T "Richard Greenwood"}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 290
+  ypos 327
+ }
+set N7091a10 [stack 0]
+add_layer {rgba redguard1.glow}
+ Text {
+  message "\[value Filename_ctrl]"
+  font "\[value DefaultText.font]"
+  size 42
+  Transform 1
+  box {0 0 0 -10}
+  translate {30 {"\[value BurnY_ctrl]" i x26 180}}
+  name Filename
+  xpos 400
+  ypos 350
+ }
+ set C7096b80 [stack 0]
+ Text {
+  message "\[format %.3d \[expr \[frame]]]"
+  font "\[value DefaultText.font]"
+  size {{parent.Filename.size.main i}}
+  xjustify right
+  Transform 1
+  translate {1890 {"\[value BurnY_ctrl]" i}}
+  name Frame
+  xpos 400
+  ypos 374
+ }
+ set C70a3470 [stack 0]
+ Invert {
+  unpremult rgba.alpha
+  name Invert2
+  xpos 400
+  ypos 440
+ }
+ Dilate {
+  size 3
+  name Dilate2
+  xpos 400
+  ypos 488
+ }
+ Blur {
+  size 6
+  name Blur3
+  xpos 400
+  ypos 536
+ }
+clone $C7096b80 {
+  xpos 400
+  ypos 612
+  selected false
+ }
+clone $C70a3470 {
+  xpos 400
+  ypos 638
+  selected false
+ }
+ Reformat {
+  name Reformat3
+  xpos 400
+  ypos 686
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 510
+  ypos 686
+ }
+ Merge2 {
+  inputs 2
+  mix {{"\[value BurnToggle_ctrl]==1 && \[value SlateVisibleFrame_ctrl]!=\[frame]"}}
+  name Merge3
+  xpos 510
+  ypos 734
+ }
+set N70ecfe0 [stack 0]
+ Output {
+  name Output1
+  xpos 510
+  ypos 782
+ }
+push $N7091a10
+ Text {
+  message ""
+  font "\[value Font_ctrl]"
+  translate {100 100}
+  name DefaultText
+  tile_color 0xff0000ff
+  xpos 290
+  ypos 398
+ }
+push $N70ecfe0
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 730
+  ypos 734
+ }
+end_group

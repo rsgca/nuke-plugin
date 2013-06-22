@@ -1,0 +1,91 @@
+#! C:/Program Files/Nuke5.1v2/Nuke5.1.exe -nx
+version 5.1200
+Gizmo {
+ inputs 2
+ tile_color 0xcc804eff
+ label "<div><font size=\"2\"><b>to Nuke 5.1</b></font></div>"
+ help "LM 2DMV to Nuke v2 for Nuke 5.1v2\n\nThis node converts Motion Vectors rendered with the LM_2DMV shader from La Maison using ReelSmart settings to Nuke's compatible \"format\".\n\nGet MV pass from:\nUse the \"Get MV pass from\" dropdown to select from where the LM_2DMV gizmo will get your MV pass, if set to \"MV input\" it will use the RG channels from your RGBA layer (use this if your MV pass is coming from a reader or is present in the RGBA channels. Use \"Pipe input\" if your MV pass is already present in a forward layer in your pipe. If \"Pipe input\" is used you don't need to connect the MV input.\n\nUnpremultiply MV pass:\nCheck this option if your MV pass was rendered with an Alpha channel and is premultiplied. This will unpremultiply it by it's alpha so the conversion can be done correctly.\n\nLinearize MV pass:\nCheck this if your MV pass was encoded in sRGB colorspace.\n\nNOTE:\nSet the correct colorspace in the Reader node that is bringing your MV pass to Nuke. leaving it to \"Default\" won't generate correct results and might cause Nuke to crash.\n\nUsage:\nAfter setting this node to it's correct settings like mentioned above, add a VectorBlur node and set:\n- channels to \"rgba\"\n- uv channels to \"forward\"\n- method to \"forward\"\n- alpha to \"rgba.alpha\"\n\nDiogo Girondi\ndiogogirondi@gmail.com"
+ addUserKnob {20 User l LM_2DMV}
+ addUserKnob {4 getfrom l "Get MV pass from" M {"MV input (present in RGBA)" "Pipe input (present in Forward)" "" "" ""}}
+ addUserKnob {6 unpre l "Unpremultiply MV pass" +STARTLINE}
+ unpre true
+ addUserKnob {6 linmv l "Linearize MV pass" +STARTLINE}
+ linmv true
+}
+ Input {
+  inputs 0
+  name Pipe
+  xpos -60
+  ypos -129
+  number 1
+ }
+set N513e950 [stack 0]
+ Shuffle {
+  in forward
+  blue black
+  alpha black
+  name Forward_to_RG
+  xpos -164
+  ypos -62
+ }
+set N51404d0 [stack 0]
+ Input {
+  inputs 0
+  name MV
+  xpos -277
+  ypos -124
+ }
+ Switch {
+  inputs 2
+  which {{parent.getfrom i}}
+  name Switch1
+  xpos -277
+  ypos 1
+ }
+ Unpremult {
+  name Unpremult1
+  xpos -277
+  ypos 60
+  disable {{!parent.unpre i}}
+ }
+ ColorLookup {
+  lut {master {to_sRGB(x)/255 L 0 0.99}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name Linearize1
+  selected true
+  xpos -277
+  ypos 89
+  disable {{!parent.linmv i}}
+ }
+ Expression {
+  expr0 ((r-0.5)*(input.width*pixel_aspect))/2
+  expr1 ((g-0.5)*(input.width*pixel_aspect))/2
+  name Expression5
+  xpos -277
+  ypos 118
+ }
+push $N513e950
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  out forward
+  name RG_to_Forward
+  xpos -60
+  ypos 118
+ }
+ Output {
+  name Output1
+  xpos -60
+  ypos 174
+ }
+push $N51404d0
+ Viewer {
+  name Viewer1
+  xpos -164
+  ypos 27
+ }
+end_group

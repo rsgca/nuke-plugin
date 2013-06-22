@@ -1,0 +1,58 @@
+#! /asset/common/software/thirdparty/nuke/6.0v6-build1/arch/linux-any/x86_64/Nuke6.0 -nx
+version 6.0 v6
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {7 rotation R -180 180}
+ rotation 130
+ addUserKnob {41 size T Blur1.size}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -643
+  ypos -558
+ }
+ Transform {
+  rotate {{parent.rotation.main i}}
+  center {1024 576}
+  name Transform1
+  xpos -643
+  ypos -509
+ }
+ Blur {
+  size {90 0}
+  name Blur1
+  xpos -643
+  ypos -448
+ }
+ Transform {
+  rotate {{-parent.Transform1.rotate.main i x36 -53.64279827}}
+  center {1024 576}
+  name Transform2
+  xpos -643
+  ypos -402
+ }
+set Nd0fc5980 [stack 0]
+ Crop {
+  box {0 0 2048 1152}
+  name Crop1
+  xpos -643
+  ypos -343
+ }
+ Output {
+  name Output1
+  xpos -643
+  ypos -298
+ }
+push $Nd0fc5980
+push 0
+push 0
+ Viewer {
+  inputs 3
+  input_number 2
+  input_process false
+  name Viewer1
+  xpos -343
+  ypos -558
+ }
+end_group

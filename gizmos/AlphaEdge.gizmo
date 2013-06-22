@@ -1,0 +1,63 @@
+#! /Applications/D2Software/Nuke4.5.14.app/Contents/MacOS/../../nuke4.5_ -nx
+version 4.5014
+Gizmo {
+ inputs 1
+ addUserKnob { 20 "" User }
+ addUserKnob { 41 size innerBlur T innerBlur.size }
+ addUserKnob { 41 filter innerBlurFilter T innerBlur.filter }
+ addUserKnob { 41 size_1 outerBlur T outerBlur.size }
+ addUserKnob { 41 filter_1 outerBlurFilter T outerBlur.filter }
+ addUserKnob { 41 value gain T Multiply1.value }
+ name AlphaEdge
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 46
+  ypos 82
+ }
+ Dot {
+  name Dot2
+  xpos -176
+  ypos 86
+ }
+set N11c09a0 [stack 0]
+ Blur {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  size 20
+  name outerBlur
+  xpos -258
+  ypos 140
+ }
+push $N11c09a0
+ Blur {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  size 10
+  name innerBlur
+  xpos -145
+  ypos 140
+ }
+ Merge2 {
+  inputs 2
+  A {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  operation out
+  B {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  name Merge4
+  xpos -208
+  ypos 232
+ }
+add_layer {alpha rgba.alpha}
+ Multiply {
+  channels alpha
+  value 2
+  name Multiply1
+  xpos -208
+  ypos 296
+ }
+ Output {
+  name Output1
+  selected true
+  xpos -208
+  ypos 364
+ }
+end_group

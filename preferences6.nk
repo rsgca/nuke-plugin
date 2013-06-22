@@ -1,0 +1,11 @@
+Preferences {
+ inputs 0
+ name Preferences
+ maxPanels 2
+ LabelFont Helvetica
+ SnapToGrid true
+ show_grid true
+ dag_snap_threshold 14
+ ScriptEditorFontSize 16
+ clearOnSuccess false
+}

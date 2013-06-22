@@ -1,0 +1,60 @@
+#! C:/Program Files/Nuke6.0v6/Nuke6.0.exe -nx
+version 6.0 v1
+Gizmo {
+ addUserKnob {20 User}
+ addUserKnob {41 to1 T CornerPin2D1.to1}
+ addUserKnob {41 to2 T CornerPin2D1.to2}
+ addUserKnob {41 to3 T CornerPin2D1.to3}
+ addUserKnob {41 to4 T CornerPin2D1.to4}
+ addUserKnob {26 ""}
+ addUserKnob {32 to2from l "Set start coordinates " -STARTLINE T "foreach i \{1 2 3 4\} \{\nknob \"CornerPin2D1.from\$i\" \[knob \"CornerPin2D1.to\$i\"]\}"}
+ addUserKnob {6 Enable -STARTLINE}
+ addUserKnob {41 filter T CornerPin2D1.filter}
+ addUserKnob {41 clamp -STARTLINE T CornerPin2D1.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T CornerPin2D1.black_outside}
+ addUserKnob {41 motionblur T CornerPin2D1.motionblur}
+ addUserKnob {41 shutter T CornerPin2D1.shutter}
+ addUserKnob {41 shutteroffset T CornerPin2D1.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T CornerPin2D1.shuttercustomoffset}
+ addUserKnob {20 "" l From}
+ addUserKnob {41 from1 T CornerPin2D1.from1}
+ addUserKnob {41 from2 T CornerPin2D1.from2}
+ addUserKnob {41 from3 T CornerPin2D1.from3}
+ addUserKnob {41 from4 T CornerPin2D1.from4}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -357
+  ypos -219
+ }
+ CornerPin2D {
+  to1 {0 0}
+  enable1 {{parent.Enable i}}
+  to2 {2048 0}
+  enable2 {{enable1 i}}
+  to3 {2048 1556}
+  enable3 {{enable1 i}}
+  to4 {0 1556}
+  enable4 {{enable1 i}}
+  black_outside false
+  from1 {0 0}
+  from2 {2048 0}
+  from3 {2048 1556}
+  from4 {0 1556}
+  name CornerPin2D1
+  selected true
+  xpos -352
+  ypos -146
+ }
+ Output {
+  name Output1
+  xpos -348
+  ypos -80
+ }
+ Viewer {
+  name Viewer1
+  xpos -660
+  ypos -83
+ }
+end_group
