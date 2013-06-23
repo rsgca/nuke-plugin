@@ -5,3 +5,5 @@ plugInstCache.xml
 recent_files
 srhistory.xml
 uistate.ini
+
+*.pyc
