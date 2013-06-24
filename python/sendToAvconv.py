@@ -1,5 +1,5 @@
 import os, nuke, nukescripts
-import re, shlex, subprocess 
+import re, shlex, subprocess
 import sys
 
 # sendToAvconv
@@ -19,7 +19,7 @@ def sendToAvconv(codec = 'dnxhd'):
 		'x264' : 'libx264 -pre baseline',
 		'dnxhd' : 'dnxhd -b 36M',
 	}
-	extension = '.mov'	
+	extension = '.mov'
 
 	# set some variables
 	fps = nuke.root().knob('fps').value()
@@ -34,8 +34,9 @@ def sendToAvconv(codec = 'dnxhd'):
 	movPath =  os.path.dirname(os.path.dirname(imgSeqPath)) + '/' + re.sub('\.?%0\d+d$', '', base) + extension
 
 	# make shell command
-	enc = 'avconv -y -r %s -i \'%s\' -an -ss %s -vcodec %s -threads 0 \'%s\'' % (fps, imgSeqPath, ss, vcodec[codec], movPath)
-	subprocess.Popen(shlex.split(enc), stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+	enc = 'avconv -y -r %s -i \'%s\' -s \'hd1080\' -an -ss %s -vcodec %s -threads 0 \'%s\'' % (fps, imgSeqPath, ss, vcodec[codec], movPath)
+	#print enc
+	subprocess.Popen(shlex.split(enc), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 # returns HH:MM:SS.SSS formatted string
 # http://code.activestate.com/recipes/511486/
