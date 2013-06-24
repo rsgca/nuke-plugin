@@ -7,7 +7,7 @@ Gizmo {
  mapsize {0.15 0.15}
  addUserKnob {20 Slate}
  addUserKnob {1 Project_ctrl l "Project Title"}
- Project_ctrl "Christmas Bounty"
+ Project_ctrl ""
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
  ShotName_ctrl "\[lrange \[split \[file rootname \[file tail \[value root.name]]] \"_\"] 0 2 ]"
  #addUserKnob {4 Artist_ctrl l Artist M {-- "Alan Harrison" "Carlos Guzman" "Claude Theriault" "Geoff Hancock" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Krishna Ram" "Max Schroeder" "Michael Balzer" "Miguel Ponce" "Richard Greenwood" "Ryan Epp"}}

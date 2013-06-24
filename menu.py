@@ -67,7 +67,9 @@ m = menubar.addMenu("Import and Export")
 import FromNuke2MayaExporter, FromMaya2NukeImporter
 m.addCommand("Export Camera as fm2n-File", "FromNuke2MayaExporter.FromNuke2MayaExporter()")
 m.addCommand("Import fm2n-File", "FromMaya2NukeImporter.FromMaya2NukeImporter()")
-
+#Collect Files Menu Node
+import collectFiles
+m.addCommand('Collect Files', 'collectFiles.collectFiles()')
 
 # PANELS
 # ////////////////////////////////////////////////////////////////////////////////
