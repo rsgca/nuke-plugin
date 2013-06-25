@@ -79,7 +79,7 @@ m.addSeparator()
 #Metadata
 import showMetaData
 m.addCommand("Show MetaData","nuke.display('showMetaData.showMeta()', nuke.selectedNode(),'MetaData at ' + nuke.selectedNode().name(), 1000)","ctrl+m")
-m.addCommand("Mirror Nodes x", "nuke.tcl('MirrorNodePos x')")
+m.addCommand("Mirror Nodes X Axis", "nuke.tcl('MirrorNodePos x')")
 
 # PANELS
 # ////////////////////////////////////////////////////////////////////////////////
