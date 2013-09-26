@@ -27,53 +27,41 @@ def script_anim_version_up():
 # ////////////////////////////////////////////////////////////////////////////////
 
 # Variable declaration
-shotDir = '[file dirname [value root.name]]/../'
-if nuke.env['WIN32']:
-	reviewDir = "Y:/"
-	editorialDir = "Z:/Projects/Arctic_Air_2/editorial/from_vfx/"
-elif nuke.env['MACOS']:
-	reviewDir = "/Volumes/Wilde/"
-	editorialDir = "/Volumes/Projects/Arctic_Air_2/editorial/from_vfx/"
-elif nuke.env['LINUX']:
-	reviewDir = "/media/Wilde/"
-	editorialDir = "media/Projects/Arctic_Air_2/editorial/from_vfx/"
-episodeName = '[file tail [file dirname [file dirname [file dirname [value root.name]]]]]'
-shotName = '[file tail [file dirname [file dirname [value root.name]]]]'
-parentDir = '[file rootname [file tail [value root.name]]]'
-filename = '[file rootname [file tail [value root.name]]]'
 printf = '.%04d'
 
 # Define function
 def customWrite(extension = 'exr', destination = 'server'):
 	w = nuke.createNode("Write")
-	w.knob("name").setValue('Write_' + extension.upper() + '_' + destination.upper())
+	
+	k = nuke.String_Knob("shotdir", "Shot Dir")
+	w.addKnob(k)
+	k = nuke.String_Knob("filename", "Filename")
+	w.addKnob(k)
+	
 	w.knob("file_type").setValue(extension)
 	w.knob("beforeRender").setValue("pipeline.createWriteDir()")
+	w.knob("filename").setValue(filename())
+	
 	# EXR
 	if extension == "exr":
-		if destination == "review":
-			w.knob("file").setValue(reviewDir + 'shots/' + episodeName + '/' + shotName + '/Comp/' + parentDir + '/' + filename + printf + '.' + 'exr')
-		elif destination == "editorial":
-			w.knob("file").setValue(editorialDir + 'Planes/'  + shotName + '/EXR/' + parentDir + '/' + filename + printf + '.' + 'exr')
-			w.knob("channels").setValue("rgba")
-		else:
-			w.knob("file").setValue(shotDir + 'Comp/' + parentDir + '/' + filename + printf + '.' + extension)
-		w.knob("compression").setValue("0")
-		w.knob("colorspace").setValue("rec709")
+		w.knob("shotdir").setValue(shotDir())
+		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
 	# PNG
 	elif extension == "png":
-		if destination == "editorial":
-			w.knob("file").setValue(editorialDir + 'Planes/' + shotName + '/PNG/' + parentDir + '/' + filename + printf + '.' + 'png')
-		else:
-			w.knob("file").setValue(shotDir + 'Review/' + parentDir + '/' + filename + printf + '.' + extension)
-		w.knob("colorspace").setValue("rec709")
-		w.knob("channels").setValue("rgba")
+		w.knob("shotdir").setValue(shotDir('Review'))
+		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
 	# MOV
 	elif extension == "mov":
-		w.knob("file").setValue(shotDir + 'Review/' + '/' + filename + printf + '.' + extension)
-		w.knob("codec").setValue("avc1")
-		w.knob("quality").setValue("High")
+		w.knob("colorspace").setValue('rec709')
+		w.knob("codec").setValue('AVdn')
+		w.knob("writeTimeCode").setValue('1')
+		w.knob("settings").setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
 
+def shotDir(folder = 'Comp'):
+	return os.path.dirname(os.path.dirname(nuke.root().name())) + '/' + folder
+	
+def filename():
+	return os.path.basename(os.path.splitext(nuke.root().name())[0]) 
 
 # PATHS
 # ////////////////////////////////////////////////////////////////////////////////
@@ -90,32 +78,32 @@ def createWriteDir():
 		pass
 
 # FILENAME FIX
-
 def filenameFix(filename):
 	if nuke.env['WIN32']:
-		filename = filename.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace( "/Volumes/Wilde/", "Y:/" ).replace("/media/Wilde/", "Y:/").replace( "/Volumes/Elements/", "X:/" ).replace("/media/Elements/", "X:/")
+		filename = filename.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace( "/Volumes/Elements/", "Y:/" ).replace("/media/Elements/", "Y:/").replace( "/Volumes/Review/", "X:/" ).replace("/media/Review/", "X:/")
 	elif nuke.env['MACOS']:
-		filename = filename.replace( "Z:/", "/Volumes/Projects/" ).replace( "/media/Projects/", "/Volumes/Projects/" ).replace( "Y:/", "/Volumes/Wilde/" ).replace( "/media/Wilde/", "/Volumes/Wilde/" ).replace( "X:/", "/Volumes/Elements/" ).replace( "/media/Elements/", "/Volumes/Elements/" )
+		filename = filename.replace( "Z:/", "/Volumes/Projects/" ).replace( "/media/Projects/", "/Volumes/Projects/" ).replace( "X:/", "/Volumes/Review/" ).replace( "/media/Review/", "/Volumes/Review/" ).replace( "Y:/", "/Volumes/Elements/" ).replace( "/media/Elements/", "/Volumes/Elements/" )
 	elif nuke.env['LINUX']:
-		filename = filename.replace("Z:/", "/media/Projects/").replace("/Volumes/Projects/", "/media/Projects/").replace("Y:/", "/media/Wilde/").replace("/Volumes/Wilde/", "/media/Wilde/").replace("X:/", "/media/Elements/").replace("/Volumes/Elements/", "/media/Elements/")
+		filename = filename.replace("Z:/", "/media/Projects/").replace("/Volumes/Projects/", "/media/Projects/").replace("X:/", "/media/Review/").replace("/Volumes/Review/", "/media/Review/").replace("Y:/", "/media/Elements/").replace("/Volumes/Elements/", "/media/Elements/")
 	return filename
 
+nuke.addFilenameFilter(filenameFix)
+	
 # ADD FAVOURITE DIR
-
-project = 'Arctic_Air_2'
+project = 'Arctic_Air_3'
 vol = ''
 if nuke.env['LINUX']:
 	vol = '/media/Projects/'
 	vol2 = '/media/Elements/'
-	vol3 = '/media/Projects/Arctic_Air_2/editorial/from_vfx/'
+	vol3 = '/media/Projects/Arctic_Air_3/editorial/from_vfx/'
 elif nuke.env['MACOS']:
 	vol = '/Volumes/Projects/'
 	vol2 = '/Volumes/Elements/'
-	vol3 = '/Volumes/Projects/Arctic_Air_2/editorial/from_vfx/'
+	vol3 = '/Volumes/Projects/Arctic_Air_3/editorial/from_vfx/'
 elif nuke.env['WIN32']:
 	vol = 'Z:/'
-	vol2 = 'X:/'
-	vol3 = 'Z:/Projects/Arctic_Air_2/editorial/from_vfx/'
+	vol2 = 'Y:/'
+	vol3 = 'Z:/Projects/Arctic_Air_3/editorial/from_vfx/'
 
 nuke.addFavoriteDir('Project', vol)
 nuke.addFavoriteDir('Shots', vol + project + '/shots/')

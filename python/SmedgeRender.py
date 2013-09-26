@@ -16,7 +16,7 @@ import os, platform, random, nuke, shlex, subprocess
 if platform.system() in ("Windows", "Microsoft"):
   SUBMIT_PATH = "C:\Program Files (x86)\Smedge\Submit.exe"
 elif platform.system() in ("Linux"):
-  SUBMIT_PATH = "/opt/Smedge2012.2_x64/Submit"
+  SUBMIT_PATH = "/opt/smedge/Submit"
 else:
   SUBMIT_PATH = "/Applications/Smedge.app/Contents/MacOS/Submit"
 
@@ -131,7 +131,7 @@ class SmedgeRenderJob (object):
     # build and execute the command line
     def executeCmdJob(self):
         # filename fix for PC Farm
-        self.nukeScriptPath = self.nukeScriptPath.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace("/Volumes/Wilde/", "Y:/").replace("/media/Wilde/", "Y:/").replace("/Volumes/Elements/", "X:/").replace("/media/Elements/", "X:/")
+        self.nukeScriptPath = self.nukeScriptPath.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace("/Volumes/Elements/", "Y:/").replace("/media/Elements/", "Y:/").replace("/Volumes/Review/", "X:/").replace("/media/Review/", "X:/")
         
         # compute -p render string
         if self.srPanel.value("proxy mode") == True:

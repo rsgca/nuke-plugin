@@ -1,5 +1,5 @@
-#! /Applications/Nuke6.3v4/NukeX6.3v4.app/../Nuke6.3v4.app/Contents/MacOS/Nuke6.3v4 -nx
-version 6.3 v4
+#! /Applications/Nuke7.0v8/NukeX7.0v8.app/../Nuke7.0v8.app/Contents/MacOS/Nuke7.0v8 -nx
+version 7.0 v8
 Gizmo {
  tile_color 0x910c00ff
  note_font Verdana
@@ -7,19 +7,17 @@ Gizmo {
  mapsize {0.15 0.15}
  addUserKnob {20 Slate}
  addUserKnob {1 Project_ctrl l "Project Title"}
- Project_ctrl "Christmas Bounty"
+ Project_ctrl "Arctic Air S3"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
- ShotName_ctrl "\[lrange \[split \[file rootname \[file tail \[value root.name]]] \"_\"] 0 2 ]"
- #addUserKnob {4 Artist_ctrl l Artist M {-- "Alan Harrison" "Carlos Guzman" "Claude Theriault" "Geoff Hancock" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Krishna Ram" "Max Schroeder" "Michael Balzer" "Miguel Ponce" "Richard Greenwood" "Ryan Epp"}}
- addUserKnob {4 Artist_ctrl l Artist M {-- "Gustavo Kasai" "Karthik Kesiraju" "Max Schroeder" "Miguel Ponce" "Richard Greenwood" }}
+ ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
+ addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Max Schroeder" "Michael Balzer" "Miguel Ponce" "Richard Greenwood" "Ryan Epp" }}
  addUserKnob {1 Vendor_ctrl l Vendor -STARTLINE}
- Vendor_ctrl "GVFX"
+ Vendor_ctrl "In House"
  addUserKnob {20 Versions l Version n 1}
  Versions 0
  addUserKnob {1 CompVersion_ctrl l Comp}
- CompVersion_ctrl "\[lrange \[regexp -inline \{_c(\\d+)\} \[file rootname \[file tail \[value root.name]]]] end end ]"
+ CompVersion_ctrl "\[lrange \[regexp -inline \{_c(\\d+)\} \[value Filename_ctrl]] end end ]"
  addUserKnob {1 AnimVersion_ctrl l Animation}
- AnimVersion_ctrl "\[lrange \[regexp -inline \{_a(\\d+)\} \[file rootname \[file tail \[value root.name]]]] end end ]"
  addUserKnob {1 LightVersion_ctrl l Lighting}
  addUserKnob {20 endGroup_1 l endGroup n -1}
  addUserKnob {20 Frame n 1}
@@ -44,13 +42,12 @@ Gizmo {
  SlateVisibleFrame_ctrl 40
  addUserKnob {20 Setup}
  addUserKnob {41 font l Font T native_font.font}
- addUserKnob {26 ""}
+ addUserKnob {1 Filename_ctrl l Filename}
+ Filename_ctrl "\[file rootname \[file tail \[value root.name]]]"
  addUserKnob {3 thumbnailOffset_ctrl l "Thumbnail Offset"}
  thumbnailOffset_ctrl -1
- addUserKnob {26 ""}
  addUserKnob {6 SlugImage_ctrl l "Show Oscar" +STARTLINE}
- SlugImage_ctrl false
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {26 Author -STARTLINE T "Richard Greenwod"}
 }
  BackdropNode {
@@ -76,7 +73,7 @@ Gizmo {
   ypos -802
   addUserKnob {20 User}
   addUserKnob {2 font}
-  font "\[getenv NUKE_PATH \[getenv HOME]/.nuke]/fonts/FreeSans.ttf"
+  font "\[getenv NUKE_PATH]/fonts/FreeSans.ttf"
   addUserKnob {14 size R 0 100}
   size {{root.format.height/1080*40 i}}
  }
@@ -92,8 +89,7 @@ Gizmo {
   xpos -370
   ypos 62
  }
-set N56eb880 [stack 0]
-add_layer {rgba redguard1.glow}
+set N17e9c4e0 [stack 0]
  Shuffle {
   alpha white
   name Shuffle2
@@ -289,15 +285,30 @@ add_layer {rgba redguard1.glow}
  Text {
   message "\[value Project_ctrl]"
   font "\[value native_font.font]"
-  size {{parent.native_font.size*1.25 i}}
+  size {{parent.native_font.size*1.25}}
   yjustify top
   Transform 1
-  translate {{root.format.width/8+root.format.width/32 i} {root.format.height-root.format.height*.125 i}}
+  translate {{root.format.width/8+root.format.width/32} {root.format.height-root.format.height*.125}}
   center {960 540}
   color 0.25
   name ProjectName1
   xpos -480
-  ypos -634
+  ypos -657
+ }
+ Text {
+  message "\[string toupper \[lrange \[split \[value Filename_ctrl] \"_\"] 4 4 ]]"
+  font "\[value native_font.font]"
+  size {{parent.native_font.size*.75}}
+  xjustify right
+  yjustify top
+  Transform 1
+  box {0 0 {root.format.width/5} 0}
+  translate {{parent.ProjectName1.translate.x} {parent.ProjectName1.translate.y}}
+  scale 1.5
+  color {0.75 0.25 -0.25 0.25}
+  name Status
+  xpos -480
+  ypos -633
  }
  Text {
   message "\[value ShotName_ctrl] "
@@ -708,7 +719,7 @@ add_layer {rgba redguard1.glow}
    xpos -700
    ypos -970
   }
-  set C33acfb10 [stack 0]
+  set C25a2cf20 [stack 0]
   Transform {
    scale {{1/24 i} 1}
    name Transform8
@@ -716,7 +727,7 @@ add_layer {rgba redguard1.glow}
    xpos -700
    ypos -928
   }
-  set C33ad8530 [stack 0]
+  set C25a37f80 [stack 0]
   Transform {
    scale {1 0.875}
    name Transform4
@@ -724,13 +735,13 @@ add_layer {rgba redguard1.glow}
    xpos -700
    ypos -880
   }
-  set C33adf3c0 [stack 0]
+  set C25a415b0 [stack 0]
   Reformat {
    name Reformat7
    xpos -700
    ypos -828
   }
-  set C33ae6240 [stack 0]
+  set C25a4aba0 [stack 0]
   Text {
    message "Macbeth "
    font "\[value native_font.font]"
@@ -922,22 +933,22 @@ add_layer {rgba redguard1.glow}
    xpos -150
    ypos -1024
   }
-clone $C33acfb10 {
+clone $C25a2cf20 {
    xpos -150
    ypos -970
    selected false
   }
-clone $C33ad8530 {
+clone $C25a37f80 {
    xpos -150
    ypos -928
    selected false
   }
-clone $C33adf3c0 {
+clone $C25a415b0 {
    xpos -150
    ypos -880
    selected false
   }
-clone $C33ae6240 {
+clone $C25a4aba0 {
    xpos -150
    ypos -826
    selected false
@@ -1139,22 +1150,22 @@ clone $C33ae6240 {
    xpos 400
    ypos -1024
   }
-clone $C33acfb10 {
+clone $C25a2cf20 {
    xpos 400
    ypos -970
    selected false
   }
-clone $C33ad8530 {
+clone $C25a37f80 {
    xpos 400
    ypos -928
    selected false
   }
-clone $C33adf3c0 {
+clone $C25a415b0 {
    xpos 400
    ypos -880
    selected false
   }
-clone $C33ae6240 {
+clone $C25a4aba0 {
    xpos 400
    ypos -826
    selected false
@@ -1219,7 +1230,7 @@ clone $C33ae6240 {
   inputs 2
   name Merge61
   xpos -700
-  ypos 230
+  ypos 231
  }
  Merge2 {
   inputs 2
@@ -1299,8 +1310,8 @@ clone $C33ae6240 {
   xpos -150
   ypos 342
  }
-set N33cad6c0 [stack 0]
-push $N56eb880
+set N25c8dc40 [stack 0]
+push $N17e9c4e0
  Dot {
   name Dot1
   xpos -226
@@ -1330,7 +1341,7 @@ push $N56eb880
   xpos -480
   ypos 590
  }
-push $N33cad6c0
+push $N25c8dc40
  Viewer {
   viewerProcess rec709
   input_process false

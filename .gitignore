@@ -1,7 +1,8 @@
 folders.nk
-layout1.xml
-layout2.xml
+layout*.xml
 plugInstCache.xml
 recent_files
 srhistory.xml
 uistate.ini
+*.pyc
+.*

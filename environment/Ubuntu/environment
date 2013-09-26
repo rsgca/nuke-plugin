@@ -1,0 +1,3 @@
+# Add this to /etc/environment
+
+NUKE_PATH="/media/Projects/Arctic_Air_3/assets/Nuke/nuke-plugin"
