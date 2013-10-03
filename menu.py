@@ -9,11 +9,11 @@ m.addCommand("Owerlays", "nuke.createNode('Overlays')", index=2, icon="slate.png
 m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
-#n.addCommand("Write PNG", "pipeline.customWrite('png')", index=1, icon="Write.png")
-#n.addCommand("Write EXR Review", "pipeline.customWrite('exr', 'review')", index=2, icon="Write.png")
-n.addCommand("Write EXR", "pipeline.customWrite('exr')", index=3, icon="Write.png")
+n.addCommand("Write EXR File Server", "pipeline.customWrite('exr')", index=1, icon="Write.png")
+n.addCommand("Write EXR Review", "pipeline.customWrite('exr', 'review')", index=2, icon="Write.png")
+
 if (nuke.env['LINUX'] != 1):
-	n.addCommand("Write MOV", "pipeline.customWrite('mov')", index=4, icon="Write.png")
+	n.addCommand("Write MOV File Server", "pipeline.customWrite('mov', 'file', 'Review')", index=4, icon="Write.png")
 
 n=m.addMenu("LUT", icon=":qrc/images/Toolbar3DLUT.png")
 

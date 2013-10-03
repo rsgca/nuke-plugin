@@ -1,5 +1,5 @@
 import os, nuke, nukescripts
-import sys
+import sys, re
 
 # COMP UP
 # Versions up c01 and a01 in filenames
@@ -26,42 +26,74 @@ def script_anim_version_up():
 # WRITE NODES
 # ////////////////////////////////////////////////////////////////////////////////
 
-# Variable declaration
 printf = '.%04d'
+destination = { 'file' : '/media/Projects', 'review' : '/media/Review' }
 
 # Define function
-def customWrite(extension = 'exr', destination = 'server'):
+def customWrite(extension = 'exr', server = 'file', folder = 'Comp'):
 	w = nuke.createNode("Write")
-	
-	k = nuke.String_Knob("shotdir", "Shot Dir")
-	w.addKnob(k)
-	k = nuke.String_Knob("filename", "Filename")
-	w.addKnob(k)
 	
 	w.knob("file_type").setValue(extension)
 	w.knob("beforeRender").setValue("pipeline.createWriteDir()")
-	w.knob("filename").setValue(filename())
-	
-	# EXR
-	if extension == "exr":
-		w.knob("shotdir").setValue(shotDir())
-		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
-	# PNG
-	elif extension == "png":
-		w.knob("shotdir").setValue(shotDir('Review'))
-		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
+	w.knob("file").setValue(outpath(server, folder, extension))
+	w.knob("label").setValue(server.upper())
+
 	# MOV
-	elif extension == "mov":
+	if extension == "mov":
 		w.knob("colorspace").setValue('rec709')
 		w.knob("codec").setValue('AVdn')
 		w.knob("writeTimeCode").setValue('1')
 		w.knob("settings").setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
 
-def shotDir(folder = 'Comp'):
-	return os.path.dirname(os.path.dirname(nuke.root().name())) + '/' + folder
+def outpath(server = 'file', folder = 'Comp', extension = 'exr'):
+	return destination[server] + '/Arctic_Air_3/shots/' + route()['episode'] + '/' + route()['shot'] + '/' + folder + '/' + route()['filename'] + '/' + route()['filename'] + printf + '.' + extension
 	
-def filename():
-	return os.path.basename(os.path.splitext(nuke.root().name())[0]) 
+def route():
+    path = nuke.root().name()
+    p = re.compile('.*?/Arctic_Air_3/shots/(.*?)/(.*?)/Scripts/(.*?).nk')
+    m  = p.match (path)
+
+    r = { 'episode' : m.group(1), 'shot' : m.group(2), 'filename' : m.group(3) }
+
+    return r 
+
+# # Variable declaration
+# printf = '.%04d'
+
+# # Define function
+# def customWrite(extension = 'exr', destination = 'server'):
+# 	w = nuke.createNode("Write")
+	
+# 	k = nuke.String_Knob("shotdir", "Shot Dir")
+# 	w.addKnob(k)
+# 	k = nuke.String_Knob("filename", "Filename")
+# 	w.addKnob(k)
+	
+# 	w.knob("file_type").setValue(extension)
+# 	w.knob("beforeRender").setValue("pipeline.createWriteDir()")
+# 	w.knob("filename").setValue(filename())
+	
+# 	# EXR
+# 	if extension == "exr":
+# 		w.knob("shotdir").setValue(shotDir())
+# 		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
+# 	# PNG
+# 	elif extension == "png":
+# 		w.knob("shotdir").setValue(shotDir('Review'))
+# 		w.knob("file").setValue('[value shotdir]/[value filename]/[value filename]' + printf + '.' + extension)
+# 	# MOV
+# 	elif extension == "mov":
+# 		w.knob("colorspace").setValue('rec709')
+# 		w.knob("codec").setValue('AVdn')
+# 		w.knob("writeTimeCode").setValue('1')
+# 		w.knob("settings").setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
+
+# def shotDir(folder = 'Comp'):
+# 	return os.path.dirname(os.path.dirname(nuke.root().name())) + '/' + folder
+	
+# def filename():
+# 	return os.path.basename(os.path.splitext(nuke.root().name())[0]) 
+
 
 # PATHS
 # ////////////////////////////////////////////////////////////////////////////////

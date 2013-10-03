@@ -22,7 +22,7 @@ Gizmo {
  addUserKnob {6 RulersToggle_ctrl l "Show Rulers" +STARTLINE}
  RulersToggle_ctrl true
  addUserKnob {6 RulersCentreToggle_ctrl l "Show Centre" -STARTLINE}
- RulersCentreToggle_ctrl true
+ RulersCentreToggle_ctrl false
  addUserKnob {26 Letterbox}
  addUserKnob {4 LetterboxFormat_ctrl l Format M {1.78 1.85 2.35 2.39 2.66 2.76 4 "" ""}}
  LetterboxFormat_ctrl 1.78

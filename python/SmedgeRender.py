@@ -9,6 +9,7 @@
 
 # import required modules
 import os, platform, random, nuke, shlex, subprocess
+import socket
 
 # Path to the Submit executable
 # Adjust this path to the correct executable path for your system. 
@@ -76,7 +77,6 @@ class SmedgeRenderJob (object):
         self.srPanel.addEnumerationPulldown("priority", "0 1 2 3 4 5 6 7 8 9")
         self.srPanel.addEnumerationPulldown("pool", "2D 3D")
         self.srPanel.addSingleLineInput("note", "")
-        self.srPanel.addBooleanCheckBox("h264", 0)
         self.srPanel.addBooleanCheckBox("dnxhd", 0)
         self.srPanel.addBooleanCheckBox("paused", 0)
         self.srPanel.addButton("Cancel")
@@ -99,6 +99,7 @@ class SmedgeRenderJob (object):
         self.nukeFromFrame = self.srPanel.value("start frame")
         self.nukeToFrame = self.srPanel.value("end frame")
         self.packetSize = self.srPanel.value("packet size")
+        
 
         try:
             if self.nukeFromFrame != str(int(self.nukeFromFrame)):
@@ -132,7 +133,9 @@ class SmedgeRenderJob (object):
     def executeCmdJob(self):
         # filename fix for PC Farm
         self.nukeScriptPath = self.nukeScriptPath.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace("/Volumes/Elements/", "Y:/").replace("/media/Elements/", "Y:/").replace("/Volumes/Review/", "X:/").replace("/media/Review/", "X:/")
-        
+        # get machine name
+        creator = socket.gethostname()
+
         # compute -p render string
         if self.srPanel.value("proxy mode") == True:
             renderProxyString = " -p"
@@ -150,22 +153,16 @@ class SmedgeRenderJob (object):
             renderPaused = ' -paused'
         else:
             renderPaused = ""
-        
-        # computer -note flag string
-        if self.srPanel.value("h264") == True:
-            renderNote = 'h264 ' + self.srPanel.value("note")
-        else:
-            renderNote = self.srPanel.value("note")
             
         # computer -note flag string
         if self.srPanel.value("dnxhd") == True:
-            renderNote2 = 'dnxhd ' + self.srPanel.value("note")
+            renderNote = 'dnxhd ' + self.srPanel.value("note")
         else:
-            renderNote2 = self.srPanel.value("note")
+            renderNote = self.srPanel.value("note")
 
 
         # get everything together
-        cmdText = '%s script -type Nuke -scene %s -name \"%s\" -priority %s -pool \"%s\" -note \"%s %s\" %s -range %i-%i -packetsize %i -writenode \"%s\" -extra \"%s\" -creator \"godzilla\"' % (self.submitExecutablePath, self.nukeScriptPath, self.jobName, self.srPanel.value("priority"), self.srPanel.value("pool"), renderNote, renderNote2, renderPaused, self.nukeFromFrame, self.nukeToFrame, self.packetSize, renderNodeString, renderProxyString)
+        cmdText = '%s script -type Nuke -scene %s -name \"%s\" -priority %s -pool \"%s\" -note \"%s\" %s -range %i-%i -packetsize %i -writenode \"%s\" -extra \"%s\" -creator \"%s\"' % (self.submitExecutablePath, self.nukeScriptPath, self.jobName, self.srPanel.value("priority"), self.srPanel.value("pool"), renderNote, renderPaused, self.nukeFromFrame, self.nukeToFrame, self.packetSize, renderNodeString, renderProxyString, creator)
         nuke.tprint(cmdText)
         # split into chunks so it works correctly on Unix platforms
         args = shlex.split(cmdText)

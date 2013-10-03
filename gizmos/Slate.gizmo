@@ -1,4 +1,4 @@
-#! /Applications/Nuke7.0v8/NukeX7.0v8.app/../Nuke7.0v8.app/Contents/MacOS/Nuke7.0v8 -nx
+#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
 version 7.0 v8
 Gizmo {
  tile_color 0x910c00ff
@@ -10,7 +10,7 @@ Gizmo {
  Project_ctrl "Arctic Air S3"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
  ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
- addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Max Schroeder" "Michael Balzer" "Miguel Ponce" "Richard Greenwood" "Ryan Epp" }}
+ addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Max Schroeder" "Michael Balzer" "Miguel Ponce" "Richard Greenwood" "Ryan Epp"}}
  addUserKnob {1 Vendor_ctrl l Vendor -STARTLINE}
  Vendor_ctrl "In House"
  addUserKnob {20 Versions l Version n 1}
@@ -89,7 +89,7 @@ Gizmo {
   xpos -370
   ypos 62
  }
-set N17e9c4e0 [stack 0]
+set N76f72f0 [stack 0]
  Shuffle {
   alpha white
   name Shuffle2
@@ -292,23 +292,9 @@ set N17e9c4e0 [stack 0]
   center {960 540}
   color 0.25
   name ProjectName1
+  selected true
   xpos -480
-  ypos -657
- }
- Text {
-  message "\[string toupper \[lrange \[split \[value Filename_ctrl] \"_\"] 4 4 ]]"
-  font "\[value native_font.font]"
-  size {{parent.native_font.size*.75}}
-  xjustify right
-  yjustify top
-  Transform 1
-  box {0 0 {root.format.width/5} 0}
-  translate {{parent.ProjectName1.translate.x} {parent.ProjectName1.translate.y}}
-  scale 1.5
-  color {0.75 0.25 -0.25 0.25}
-  name Status
-  xpos -480
-  ypos -633
+  ypos -634
  }
  Text {
   message "\[value ShotName_ctrl] "
@@ -719,7 +705,7 @@ set N17e9c4e0 [stack 0]
    xpos -700
    ypos -970
   }
-  set C25a2cf20 [stack 0]
+  set C7ab4a50 [stack 0]
   Transform {
    scale {{1/24 i} 1}
    name Transform8
@@ -727,7 +713,7 @@ set N17e9c4e0 [stack 0]
    xpos -700
    ypos -928
   }
-  set C25a37f80 [stack 0]
+  set C7ac13f0 [stack 0]
   Transform {
    scale {1 0.875}
    name Transform4
@@ -735,13 +721,13 @@ set N17e9c4e0 [stack 0]
    xpos -700
    ypos -880
   }
-  set C25a415b0 [stack 0]
+  set C7acd040 [stack 0]
   Reformat {
    name Reformat7
    xpos -700
    ypos -828
   }
-  set C25a4aba0 [stack 0]
+  set C7ad8cf0 [stack 0]
   Text {
    message "Macbeth "
    font "\[value native_font.font]"
@@ -933,22 +919,22 @@ set N17e9c4e0 [stack 0]
    xpos -150
    ypos -1024
   }
-clone $C25a2cf20 {
+clone $C7ab4a50 {
    xpos -150
    ypos -970
    selected false
   }
-clone $C25a37f80 {
+clone $C7ac13f0 {
    xpos -150
    ypos -928
    selected false
   }
-clone $C25a415b0 {
+clone $C7acd040 {
    xpos -150
    ypos -880
    selected false
   }
-clone $C25a4aba0 {
+clone $C7ad8cf0 {
    xpos -150
    ypos -826
    selected false
@@ -1150,22 +1136,22 @@ clone $C25a4aba0 {
    xpos 400
    ypos -1024
   }
-clone $C25a2cf20 {
+clone $C7ab4a50 {
    xpos 400
    ypos -970
    selected false
   }
-clone $C25a37f80 {
+clone $C7ac13f0 {
    xpos 400
    ypos -928
    selected false
   }
-clone $C25a415b0 {
+clone $C7acd040 {
    xpos 400
    ypos -880
    selected false
   }
-clone $C25a4aba0 {
+clone $C7ad8cf0 {
    xpos 400
    ypos -826
    selected false
@@ -1310,8 +1296,8 @@ clone $C25a4aba0 {
   xpos -150
   ypos 342
  }
-set N25c8dc40 [stack 0]
-push $N17e9c4e0
+set N7d83c80 [stack 0]
+push $N76f72f0
  Dot {
   name Dot1
   xpos -226
@@ -1341,7 +1327,7 @@ push $N17e9c4e0
   xpos -480
   ypos 590
  }
-push $N25c8dc40
+push $N7d83c80
  Viewer {
   viewerProcess rec709
   input_process false
