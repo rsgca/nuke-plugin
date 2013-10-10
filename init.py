@@ -8,6 +8,7 @@ nuke.pluginAddPath('./python')
 nuke.pluginAddPath('./lib')
 nuke.pluginAddPath('./lut')
 nuke.pluginAddPath('./tcl')
+nuke.pluginAddPath('./templates')
 
 import os, nukescripts, platform
 import pipeline

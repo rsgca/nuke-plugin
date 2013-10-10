@@ -1,0 +1,217 @@
+set cut_paste_input [stack 0]
+version 7.0 v8
+NoOp {
+ inputs 0
+ name NoOp1
+ label "FG Plate"
+ selected true
+ xpos 3110
+ ypos -129
+}
+Denoise2 {
+ serializeKnob "0.723693 0.625986 0.914962
+0.00407565 0.00335783 0.00437009
+0.00407565 0.00335783 0.00437009
+0.00406103 0.00169395 0.00370041
+0 0 0
+0.00201012 0.00211104 0.00258735
+0.00201012 0.00211104 0.00258735
+0.00108034 0.00108883 0.00129929
+0 0 0
+0.00118812 0.00125607 0.00154115
+0.00118812 0.00125607 0.00154115
+0.000567054 0.000735424 0.000783194
+0 0 0
+0.000504408 0.000512538 0.00071393
+0.000504408 0.000512538 0.00071393
+0.000285193 0.000364526 0.00039157
+0 0 0 0 0 0 0 0 0 
+9399623043502950979
+"
+ analysisRegion {610 841 306 1033}
+ analysisFrame 334
+ needsAnalyzing false
+ needsProfile true
+ userMessage ""
+ name Denoise1
+ selected true
+ xpos 3110
+ ypos -9
+}
+Dot {
+ name Dot10
+ selected true
+ xpos 3144
+ ypos 60
+}
+set N6397e8e0 [stack 0]
+Dot {
+ name Dot11
+ selected true
+ xpos 3364
+ ypos 60
+}
+push $N6397e8e0
+IBKColourV3 {
+ name IBKColourV3_1
+ selected true
+ xpos 3110
+ ypos 104
+ screen_type green
+ Size 0.5
+ multi 3.32
+}
+IBKColourV3 {
+ name IBKColourV3_2
+ selected true
+ xpos 3110
+ ypos 130
+ screen_type green
+ Size 0.5
+ multi 5
+}
+IBKColourV3 {
+ name IBKColourV3_3
+ selected true
+ xpos 3110
+ ypos 156
+ screen_type green
+ Size 1
+ multi 5
+}
+IBKColourV3 {
+ name IBKColourV3_4
+ selected true
+ xpos 3110
+ ypos 182
+ screen_type green
+ Size 0.5
+ multi 141
+}
+IBKColourV3 {
+ name IBKColourV3_6
+ selected true
+ xpos 3110
+ ypos 208
+ screen_type green
+ Size 0.5
+ multi 100
+}
+Dot {
+ name Dot12
+ selected true
+ xpos 3144
+ ypos 276
+}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge1
+ selected true
+ xpos 3330
+ ypos 272
+}
+Saturation {
+ saturation 0.2
+ name Saturation1
+ selected true
+ xpos 3330
+ ypos 320
+}
+HSVTool {
+ name HSVTool1
+ selected true
+ xpos 3330
+ ypos 362
+}
+set N2c7d92d0 [stack 0]
+Clamp {
+ maximum 10
+ name Clamp1
+ selected true
+ xpos 3330
+ ypos 410
+}
+Multiply {
+ value 0.39
+ name Multiply1
+ selected true
+ xpos 3330
+ ypos 458
+}
+Multiply {
+ value 2.28
+ name Multiply2
+ selected true
+ xpos 3330
+ ypos 506
+ disable true
+}
+push $cut_paste_input
+NoOp {
+ name NoOp2
+ label BG_Plae
+ selected true
+ xpos 3880
+ ypos 272
+}
+Dot {
+ name Dot13
+ selected true
+ xpos 3914
+ ypos 420
+}
+set N2c809490 [stack 0]
+push $N2c7d92d0
+Clamp {
+ minimum -10
+ name Clamp2
+ selected true
+ xpos 3550
+ ypos 362
+}
+Multiply {
+ value 0.237
+ name Multiply3
+ selected true
+ xpos 3550
+ ypos 410
+}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge2
+ selected true
+ xpos 3770
+ ypos 416
+}
+Merge2 {
+ inputs 2
+ operation screen
+ name Merge3
+ selected true
+ xpos 3770
+ ypos 512
+}
+Grade {
+ name Grade1
+ selected true
+ xpos 3770
+ ypos 584
+}
+push $N2c809490
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge4
+ selected true
+ xpos 3880
+ ypos 584
+}
+NoOp {
+ name NoOp3
+ label "Add FG\nGreenscreen"
+ selected true
+ xpos 3880
+ ypos 704
+}

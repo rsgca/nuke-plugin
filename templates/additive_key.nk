@@ -1,0 +1,228 @@
+set cut_paste_input [stack 0]
+version 6.3 v4
+BackdropNode {
+ inputs 0
+ name BackdropNode12
+ tile_color 0x71c67100
+ label "Change hue according to\nPlate"
+ note_font_size 20
+ selected true
+ xpos 1492
+ ypos -536
+ bdwidth 342
+ bdheight 201
+}
+NoOp {
+ inputs 0
+ name NoOp2
+ label FG
+ selected true
+ xpos 1282
+ ypos -797
+}
+NoOp {
+ name NoOp1
+ label "FG Plate"
+ selected true
+ xpos 1282
+ ypos -701
+}
+set N15df4700 [stack 0]
+OFXuk.co.thefoundry.keylight.keylight_v201 {
+ show "Final Result"
+ unPreMultiply false
+ screenColour {0.04106066376 0.4502590001 0.1219722927}
+ screenGain 1
+ screenBalance 0.5
+ alphaBias {0.5 0.5 0.5}
+ despillBias {0.5 0.5 0.5}
+ gangBiases true
+ preBlur 0
+ "Screen Matte" 0
+ screenClipMin 0
+ screenClipMax 1
+ screenClipRollback 0
+ screenGrowShrink 0
+ screenSoftness 0
+ screenDespotBlack 0
+ screenDespotWhite 0
+ screenReplaceMethod "Soft Colour"
+ screenReplaceColour {0.5 0.5 0.5}
+ Tuning 0
+ midPoint 0.5
+ lowGain 1
+ midGain 1
+ highGain 1
+ "Inside Mask" 0
+ sourceAlphaHandling Ignore
+ insideReplaceMethod "Soft Colour"
+ insideReplaceColour {0.5 0.5 0.5}
+ Crops 0
+ SourceXMethod Colour
+ SourceYMethod Colour
+ SourceEdgeColour 0
+ SourceCropL 0
+ SourceCropR 1
+ SourceCropB 0
+ SourceCropT 1
+ balanceSet false
+ insideComponent None
+ outsideComponent None
+ cacheBreaker true
+ name Keylight1
+ selected true
+ xpos 1282
+ ypos -551
+}
+push $N15df4700
+Dot {
+ name Dot52
+ selected true
+ xpos 1096
+ ypos -691
+}
+add_layer {rgba redguard1.glow}
+HueCorrect {
+ hue {sat {}
+   lum {}
+   red {}
+   green {curve x0.1867926121 1 1 1 1 1 1 1 s0}
+   blue {}
+   r_sup {}
+   g_sup {curve 1 1 0.3870648146 -0.03980088234 1 1 1}
+   b_sup {}
+   sat_thrsh {}}
+ name HueCorrect5
+ selected true
+ xpos 1062
+ ypos -359
+}
+ShuffleCopy {
+ inputs 2
+ name ShuffleCopy1
+ label Alpha
+ selected true
+ xpos 1282
+ ypos -365
+}
+Premult {
+ name Premult3
+ selected true
+ xpos 1282
+ ypos -311
+}
+push $N15df4700
+Dot {
+ name Dot53
+ selected true
+ xpos 1536
+ ypos -691
+}
+set N15db9130 [stack 0]
+Shuffle {
+ green red
+ blue red
+ alpha red
+ name Shuffle7
+ tile_color 0xff0000ff
+ label Red
+ selected true
+ xpos 1502
+ ypos -629
+}
+Grade {
+ white 1.12
+ name Grade11
+ selected true
+ xpos 1502
+ ypos -384
+}
+push $N15db9130
+Dot {
+ name Dot54
+ selected true
+ xpos 1646
+ ypos -691
+}
+set N15cdbad0 [stack 0]
+Dot {
+ name Dot55
+ selected true
+ xpos 1756
+ ypos -691
+}
+Shuffle {
+ red blue
+ green blue
+ alpha blue
+ name Shuffle8
+ tile_color 0x30ffff
+ label Blue
+ selected true
+ xpos 1722
+ ypos -629
+}
+Grade {
+ name Grade12
+ selected true
+ xpos 1722
+ ypos -504
+}
+push $N15cdbad0
+Shuffle {
+ red green
+ blue green
+ alpha green
+ name Shuffle9
+ tile_color 0xff30ff
+ label Green
+ selected true
+ xpos 1612
+ ypos -629
+}
+Grade {
+ white 1.72
+ name Grade13
+ selected true
+ xpos 1612
+ ypos -456
+}
+Switch {
+ inputs 2
+ name Switch1
+ label "Blue/green screen"
+ selected true
+ xpos 1722
+ ypos -461
+}
+push $cut_paste_input
+NoOp {
+ name NoOp3
+ label BG
+ selected true
+ xpos 1942
+ ypos -796
+}
+Merge2 {
+ inputs 2
+ operation min
+ name Merge33
+ selected true
+ xpos 1942
+ ypos -455
+}
+Merge2 {
+ inputs 2
+ operation max
+ name Merge34
+ selected true
+ xpos 1942
+ ypos -383
+}
+Merge2 {
+ inputs 2
+ name Merge35
+ selected true
+ xpos 1942
+ ypos -310
+}

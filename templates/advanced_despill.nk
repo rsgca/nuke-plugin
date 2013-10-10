@@ -1,0 +1,113 @@
+set cut_paste_input [stack 0]
+version 6.3 v4
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0x7171c600
+ label "advanced\ndespill"
+ note_font_size 22
+ selected true
+ xpos -272
+ ypos -210
+ bdwidth 210
+ bdheight 324
+}
+push $cut_paste_input
+Dot {
+ name Dot4
+ selected true
+ xpos -116
+ ypos -126
+}
+set N4bc29c70 [stack 0]
+push $N4bc29c70
+OFXuk.co.thefoundry.keylight.keylight_v201 {
+ show "Final Result"
+ unPreMultiply false
+ screenColour {0 1 0}
+ screenGain 1
+ screenBalance 0.5
+ alphaBias {0.5 0.5 0.5}
+ despillBias {0.5 0.5 0.5}
+ gangBiases true
+ preBlur 0
+ "Screen Matte" 0
+ screenClipMin 0
+ screenClipMax 1
+ screenClipRollback 0
+ screenGrowShrink 0
+ screenSoftness 0
+ screenDespotBlack 0
+ screenDespotWhite 0
+ screenReplaceMethod "Soft Colour"
+ screenReplaceColour {0.5 0.5 0.5}
+ Tuning 0
+ midPoint 0.5
+ lowGain 1
+ midGain 1
+ highGain 1
+ "Inside Mask" 0
+ sourceAlphaHandling Ignore
+ insideReplaceMethod "Soft Colour"
+ insideReplaceColour {0.5 0.5 0.5}
+ Crops 0
+ SourceXMethod Colour
+ SourceYMethod Colour
+ SourceEdgeColour 0
+ SourceCropL 0
+ SourceCropR 1
+ SourceCropB 0
+ SourceCropT 1
+ balanceSet false
+ insideComponent None
+ outsideComponent None
+ cacheBreaker true
+ name Keylight3
+ selected true
+ xpos -260
+ ypos -129
+}
+Dot {
+ name Dot6
+ selected true
+ xpos -226
+ ypos -78
+}
+set N2a6efe50 [stack 0]
+add_layer {rgba redguard1.glow}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge14
+ selected true
+ xpos -150
+ ypos -57
+}
+Saturation {
+ saturation 0
+ name Saturation1
+ selected true
+ xpos -150
+ ypos -9
+}
+Clamp {
+ name Clamp1
+ selected true
+ xpos -150
+ ypos 34
+}
+push $N2a6efe50
+Dot {
+ name Dot5
+ selected true
+ xpos -226
+ ypos 66
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge15
+ selected true
+ xpos -150
+ ypos 87
+}

@@ -77,7 +77,7 @@ class SmedgeRenderJob (object):
         self.srPanel.addEnumerationPulldown("priority", "0 1 2 3 4 5 6 7 8 9")
         self.srPanel.addEnumerationPulldown("pool", "2D 3D")
         self.srPanel.addSingleLineInput("note", "")
-        self.srPanel.addBooleanCheckBox("dnxhd", 0)
+        self.srPanel.addBooleanCheckBox("dnxhd", 1)
         self.srPanel.addBooleanCheckBox("paused", 0)
         self.srPanel.addButton("Cancel")
         self.srPanel.addButton("Submit")
@@ -162,7 +162,7 @@ class SmedgeRenderJob (object):
 
 
         # get everything together
-        cmdText = '%s script -type Nuke -scene %s -name \"%s\" -priority %s -pool \"%s\" -note \"%s\" %s -range %i-%i -packetsize %i -writenode \"%s\" -extra \"%s\" -creator \"%s\"' % (self.submitExecutablePath, self.nukeScriptPath, self.jobName, self.srPanel.value("priority"), self.srPanel.value("pool"), renderNote, renderPaused, self.nukeFromFrame, self.nukeToFrame, self.packetSize, renderNodeString, renderProxyString, creator)
+        cmdText = '%s script -type Nuke -scene %s -name \"%s\" -priority %s -pool \"%s\" -note \"%s\" %s -range %i-%i -packetsize %i -writenode \"%s\" -extra \"%s\" -creator \"%s\" -Verbose 0' % (self.submitExecutablePath, self.nukeScriptPath, self.jobName, self.srPanel.value("priority"), self.srPanel.value("pool"), renderNote, renderPaused, self.nukeFromFrame, self.nukeToFrame, self.packetSize, renderNodeString, renderProxyString, creator)
         nuke.tprint(cmdText)
         # split into chunks so it works correctly on Unix platforms
         args = shlex.split(cmdText)

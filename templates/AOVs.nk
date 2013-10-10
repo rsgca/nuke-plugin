@@ -1,0 +1,572 @@
+set cut_paste_input [stack 0]
+version 6.3 v4
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ tile_color 0x7171c600
+ label AOV
+ note_font_size 42
+ selected true
+ xpos -380
+ ypos -1033
+ bdwidth 2301
+ bdheight 1446
+}
+push $cut_paste_input
+NoOp {
+ name NoOp11
+ label Id
+ selected true
+ xpos 1280
+ ypos -640
+}
+Shuffle {
+ name Shuffle10
+ selected true
+ xpos 1280
+ ypos -602
+}
+Dot {
+ name Dot19
+ selected true
+ xpos 1314
+ ypos -6
+}
+NoOp {
+ inputs 0
+ name NoOp12
+ label Id
+ selected true
+ xpos 1390
+ ypos -640
+}
+Shuffle {
+ name Shuffle11
+ selected true
+ xpos 1390
+ ypos -602
+}
+Dot {
+ name Dot20
+ selected true
+ xpos 1424
+ ypos 42
+}
+NoOp {
+ inputs 0
+ name NoOp13
+ label Id
+ selected true
+ xpos 1500
+ ypos -640
+}
+Shuffle {
+ name Shuffle12
+ selected true
+ xpos 1500
+ ypos -602
+}
+Dot {
+ name Dot21
+ selected true
+ xpos 1534
+ ypos 90
+}
+NoOp {
+ inputs 0
+ name NoOp14
+ label Depht
+ selected true
+ xpos 1720
+ ypos -640
+}
+Shuffle {
+ out depth
+ name Shuffle9
+ selected true
+ xpos 1720
+ ypos -586
+}
+Dot {
+ name Dot18
+ selected true
+ xpos 1754
+ ypos 210
+}
+NoOp {
+ inputs 0
+ name NoOp1
+ label Beauty
+ selected true
+ xpos -260
+ ypos -688
+}
+set N3d5b4e0 [stack 0]
+Dot {
+ name Dot17
+ selected true
+ xpos -226
+ ypos 138
+}
+NoOp {
+ inputs 0
+ name NoOp9
+ label Spec
+ selected true
+ xpos 1060
+ ypos -640
+}
+Shuffle {
+ name Shuffle8
+ selected true
+ xpos 1060
+ ypos -602
+}
+Unpremult {
+ name Unpremult9
+ selected true
+ xpos 1060
+ ypos -576
+}
+Dot {
+ name Dot6
+ selected true
+ xpos 1094
+ ypos -510
+}
+set N5409990 [stack 0]
+Grade {
+ name Grade8
+ selected true
+ xpos 1060
+ ypos -274
+}
+Dot {
+ name Dot14
+ selected true
+ xpos 1094
+ ypos -102
+}
+NoOp {
+ inputs 0
+ name NoOp8
+ label Spec
+ selected true
+ xpos 950
+ ypos -640
+}
+Shuffle {
+ name Shuffle7
+ selected true
+ xpos 950
+ ypos -602
+}
+Unpremult {
+ name Unpremult8
+ selected true
+ xpos 950
+ ypos -576
+}
+Dot {
+ name Dot7
+ selected true
+ xpos 984
+ ypos -510
+}
+set N54310e0 [stack 0]
+Grade {
+ name Grade7
+ selected true
+ xpos 950
+ ypos -274
+}
+Dot {
+ name Dot15
+ selected true
+ xpos 984
+ ypos -150
+}
+NoOp {
+ inputs 0
+ name NoOp7
+ label Spec
+ selected true
+ xpos 840
+ ypos -640
+}
+Shuffle {
+ name Shuffle6
+ selected true
+ xpos 840
+ ypos -602
+}
+Unpremult {
+ name Unpremult7
+ selected true
+ xpos 840
+ ypos -576
+}
+Dot {
+ name Dot8
+ selected true
+ xpos 874
+ ypos -510
+}
+set N5400690 [stack 0]
+Grade {
+ name Grade6
+ selected true
+ xpos 840
+ ypos -274
+}
+Dot {
+ name Dot16
+ selected true
+ xpos 874
+ ypos -198
+}
+NoOp {
+ inputs 0
+ name NoOp6
+ label Spec
+ selected true
+ xpos 730
+ ypos -640
+}
+Shuffle {
+ name Shuffle5
+ selected true
+ xpos 730
+ ypos -602
+}
+Unpremult {
+ name Unpremult6
+ selected true
+ xpos 730
+ ypos -576
+}
+Dot {
+ name Dot9
+ selected true
+ xpos 764
+ ypos -510
+}
+set N54292f0 [stack 0]
+Grade {
+ name Grade5
+ selected true
+ xpos 730
+ ypos -274
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge9
+ selected true
+ xpos 730
+ ypos -202
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge10
+ selected true
+ xpos 730
+ ypos -154
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge11
+ selected true
+ xpos 730
+ ypos -106
+}
+NoOp {
+ inputs 0
+ name NoOp5
+ label Diff
+ selected true
+ xpos 510
+ ypos -640
+}
+Shuffle {
+ name Shuffle4
+ selected true
+ xpos 510
+ ypos -602
+}
+Unpremult {
+ name Unpremult5
+ selected true
+ xpos 510
+ ypos -576
+}
+Dot {
+ name Dot2
+ selected true
+ xpos 544
+ ypos -510
+}
+set N537ff60 [stack 0]
+Grade {
+ name Grade4
+ selected true
+ xpos 510
+ ypos -346
+}
+Dot {
+ name Dot13
+ selected true
+ xpos 544
+ ypos -174
+}
+NoOp {
+ inputs 0
+ name NoOp4
+ label Diff
+ selected true
+ xpos 400
+ ypos -640
+}
+Shuffle {
+ name Shuffle3
+ selected true
+ xpos 400
+ ypos -602
+}
+Unpremult {
+ name Unpremult4
+ selected true
+ xpos 400
+ ypos -576
+}
+Dot {
+ name Dot3
+ selected true
+ xpos 434
+ ypos -510
+}
+set N5383a80 [stack 0]
+Grade {
+ name Grade3
+ selected true
+ xpos 400
+ ypos -346
+}
+Dot {
+ name Dot12
+ selected true
+ xpos 434
+ ypos -222
+}
+NoOp {
+ inputs 0
+ name NoOp3
+ label Diff
+ selected true
+ xpos 290
+ ypos -640
+}
+Shuffle {
+ name Shuffle2
+ selected true
+ xpos 290
+ ypos -602
+}
+Unpremult {
+ name Unpremult3
+ selected true
+ xpos 290
+ ypos -576
+}
+Dot {
+ name Dot4
+ selected true
+ xpos 324
+ ypos -510
+}
+set N5382ae0 [stack 0]
+Grade {
+ name Grade2
+ selected true
+ xpos 290
+ ypos -346
+}
+Dot {
+ name Dot11
+ selected true
+ xpos 324
+ ypos -270
+}
+NoOp {
+ inputs 0
+ name NoOp2
+ label Diff
+ selected true
+ xpos 180
+ ypos -640
+}
+Shuffle {
+ name Shuffle1
+ selected true
+ xpos 180
+ ypos -602
+}
+Unpremult {
+ name Unpremult2
+ selected true
+ xpos 180
+ ypos -576
+}
+Dot {
+ name Dot1
+ selected true
+ xpos 214
+ ypos -510
+}
+set N539bec0 [stack 0]
+Grade {
+ name Grade1
+ selected true
+ xpos 180
+ ypos -346
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge6
+ selected true
+ xpos 180
+ ypos -274
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge7
+ selected true
+ xpos 180
+ ypos -226
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge8
+ selected true
+ xpos 180
+ ypos -178
+}
+push $N5409990
+push $N54310e0
+push 0
+push $N5400690
+push $N54292f0
+Merge2 {
+ inputs 4+1
+ operation plus
+ name Merge3
+ selected true
+ xpos 620
+ ypos -514
+}
+Dot {
+ name Dot10
+ selected true
+ xpos 654
+ ypos -414
+}
+push $N537ff60
+push $N5383a80
+push 0
+push $N5382ae0
+push $N539bec0
+Merge2 {
+ inputs 4+1
+ operation plus
+ name Merge2
+ selected true
+ xpos 70
+ ypos -514
+}
+Dot {
+ name Dot5
+ selected true
+ xpos 104
+ ypos -462
+}
+push $N3d5b4e0
+Unpremult {
+ name Unpremult1
+ selected true
+ xpos -150
+ ypos -634
+}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge1
+ selected true
+ xpos -150
+ ypos -466
+}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge4
+ selected true
+ xpos -150
+ ypos -418
+}
+Grade {
+ name Grade9
+ label "Beuty Patch"
+ selected true
+ xpos -150
+ ypos -328
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge5
+ label Diffuse
+ selected true
+ xpos -150
+ ypos -184
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge12
+ label Spec
+ selected true
+ xpos -150
+ ypos -112
+}
+ShuffleCopy {
+ inputs 2
+ name ShuffleCopy1
+ selected true
+ xpos -150
+ ypos 134
+}
+ShuffleCopy {
+ inputs 2
+ out depth
+ name ShuffleCopy2
+ selected true
+ xpos -150
+ ypos 206
+}
+Premult {
+ name Premult1
+ selected true
+ xpos -150
+ ypos 254
+}
+NoOp {
+ name NoOp10
+ label "Lens Distortion"
+ selected true
+ xpos -150
+ ypos 296
+}
