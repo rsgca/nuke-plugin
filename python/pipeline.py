@@ -45,14 +45,14 @@ def customWrite(server = 'file', folder = 'Comp', extension = 'exr', relative = 
     w.setInput(0, c)
 
     # add new knobs
-    k = nuke.File_Knob("shotpath", "Shot Path")
-    w.addKnob(k)
-    k = nuke.File_Knob("filename", "Filename")
-    w.addKnob(k)
+    # k = nuke.String_Knob("shotpath", "Shot Path")
+    # w.addKnob(k)
+    # k = nuke.String_Knob("filename", "Filename")
+    # w.addKnob(k)
 
     #set knob values
-    w["shotpath"].setValue(shotpath)
-    w["filename"].setValue(filename[relative]) 
+    # w["shotpath"].setValue(shotpath)
+    # w["filename"].setValue(filename[relative]) 
     w["file_type"].setValue(extension)
     w["beforeRender"].setValue("pipeline.createWriteDir()")
     w["label"].setValue(server.upper())
@@ -64,9 +64,11 @@ def customWrite(server = 'file', folder = 'Comp', extension = 'exr', relative = 
         w["writeTimeCode"].setValue('1')
         w["settings"].setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
 
-        w["file"].setValue('[value shotpath]' + '/' + folder + '/[value filename]' + '.' + extension)
+        # w["file"].setValue('[value shotpath]' + '/' + folder + '/[value filename]' + '.' + extension)
+        w["file"].setValue(shotpath + '/' + folder + '/'+ filename[relative] + '.' + extension)
     else:
-        w["file"].setValue('[value shotpath]' + '/' + folder + '/[value filename]/[value filename]' + printf + '.' + extension)
+        # w["file"].setValue('[value shotpath]' + '/' + folder + '/[value filename]/[value filename]' + printf + '.' + extension)
+        w["file"].setValue(shotpath + '/' + folder + '/'+ filename[relative] + '/'+ filename[relative] + '.' + extension)
     
 
 def route():
