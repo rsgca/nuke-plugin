@@ -10,7 +10,7 @@ m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
 n.addCommand("Write EXR File Server", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
-n.addCommand("Write EXR Review", "pipeline.customWrite(server = 'review', extension = 'exr')", index=2, icon="Write.png")
+# n.addCommand("Write EXR Review", "pipeline.customWrite(server = 'review', extension = 'exr')", index=2, icon="Write.png")
 
 if (nuke.env['LINUX'] != 1):
 	n.addCommand("Write MOV File Server", "pipeline.customWrite('file', 'Review', 'mov' )", index=4, icon="Write.png")

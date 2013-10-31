@@ -39,3 +39,5 @@ reformat_presets.nodePresetReformat()
 nuke.knobDefault('Viewer.viewerProcess', 'rec709')
 nuke.knobDefault('monitorLut', 'rec709')
 nuke.knobDefault('floatLut', 'rec709')
+
+nuke.ViewerProcess.register("Cineon", nuke.createNode, ("ViewerProcess_1DLUT", "current Cineon"))

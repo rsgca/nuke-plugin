@@ -68,7 +68,7 @@ def customWrite(server = 'file', folder = 'Comp', extension = 'exr', relative = 
         w["file"].setValue(shotpath + '/' + folder + '/'+ filename[relative] + '.' + extension)
     else:
         # w["file"].setValue('[value shotpath]' + '/' + folder + '/[value filename]/[value filename]' + printf + '.' + extension)
-        w["file"].setValue(shotpath + '/' + folder + '/'+ filename[relative] + '/'+ filename[relative] + '.' + extension)
+        w["file"].setValue(shotpath + '/' + folder + '/'+ filename[relative] + '/'+ filename[relative] + printf + '.' + extension)
     
 
 def route():
