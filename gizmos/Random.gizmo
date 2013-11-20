@@ -1,4 +1,4 @@
-#! /Applications/Nuke7.0v8/NukeX7.0v8.app/../Nuke7.0v8.app/Contents/MacOS/Nuke7.0v8 -nx
+#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
 version 7.0 v8
 Gizmo {
  inputs 0
@@ -13,6 +13,7 @@ Gizmo {
  amplitude 1
  addUserKnob {7 offset}
  addUserKnob {7 phase R 0 100}
+ addUserKnob {22 Randomize l "Randomize Seed" -STARTLINE T "from random import randint\n\nnuke.thisNode()\['phase'].setValue(randint(0,100))"}
 }
  NoOp {
   inputs 0

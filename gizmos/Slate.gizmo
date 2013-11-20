@@ -16,7 +16,7 @@ Gizmo {
  addUserKnob {20 Versions l Version n 1}
  Versions 0
  addUserKnob {1 CompVersion_ctrl l Comp}
- CompVersion_ctrl "\[lrange \[regexp -inline \{_c(\\d+)\} \[value Filename_ctrl]] end end ]"
+ CompVersion_ctrl "\[lrange \[regexp -inline \{_(c|C)(\\d+)\} \[value Filename_ctrl]] end end ]"
  addUserKnob {1 AnimVersion_ctrl l Animation}
  addUserKnob {1 LightVersion_ctrl l Lighting}
  addUserKnob {20 endGroup_1 l endGroup n -1}
