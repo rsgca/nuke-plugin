@@ -10,7 +10,7 @@ Gizmo {
  Project_ctrl "Arctic Air S3"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
  ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
- addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Richard Greenwood" "Ryan Epp" "Subodh Singh" }}
+ addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Richard Greenwood" "Ryan Epp" "Subodh Singh"}}
  addUserKnob {1 Vendor_ctrl l Vendor -STARTLINE}
  Vendor_ctrl "In House"
  addUserKnob {20 Versions l Version n 1}
@@ -39,7 +39,6 @@ Gizmo {
  addUserKnob {20 endGroup_2 l endGroup n -1}
  addUserKnob {26 ""}
  addUserKnob {3 SlateVisibleFrame_ctrl l "Visible Frame" -STARTLINE}
- SlateVisibleFrame_ctrl 40
  addUserKnob {20 Setup}
  addUserKnob {41 font l Font T native_font.font}
  addUserKnob {1 Filename_ctrl l Filename}
@@ -81,7 +80,15 @@ Gizmo {
   inputs 0
   name BG
   xpos -370
-  ypos 14
+  ypos -34
+ }
+ ModifyMetaData {
+  metadata {
+   {set exr/reelID "\[file rootname \[file tail \[value root.name]]]"}
+  }
+  name ModifyMetaData1
+  xpos -370
+  ypos 16
  }
  Reformat {
   black_outside true
@@ -89,7 +96,7 @@ Gizmo {
   xpos -370
   ypos 62
  }
-set N76f72f0 [stack 0]
+set Nef049e0 [stack 0]
  Shuffle {
   alpha white
   name Shuffle2
@@ -292,7 +299,6 @@ set N76f72f0 [stack 0]
   center {960 540}
   color 0.25
   name ProjectName1
-  selected true
   xpos -480
   ypos -634
  }
@@ -705,7 +711,7 @@ set N76f72f0 [stack 0]
    xpos -700
    ypos -970
   }
-  set C7ab4a50 [stack 0]
+  set C141e2270 [stack 0]
   Transform {
    scale {{1/24 i} 1}
    name Transform8
@@ -713,7 +719,7 @@ set N76f72f0 [stack 0]
    xpos -700
    ypos -928
   }
-  set C7ac13f0 [stack 0]
+  set C141eeb20 [stack 0]
   Transform {
    scale {1 0.875}
    name Transform4
@@ -721,13 +727,13 @@ set N76f72f0 [stack 0]
    xpos -700
    ypos -880
   }
-  set C7acd040 [stack 0]
+  set C141fa810 [stack 0]
   Reformat {
    name Reformat7
    xpos -700
    ypos -828
   }
-  set C7ad8cf0 [stack 0]
+  set C14206440 [stack 0]
   Text {
    message "Macbeth "
    font "\[value native_font.font]"
@@ -919,22 +925,22 @@ set N76f72f0 [stack 0]
    xpos -150
    ypos -1024
   }
-clone $C7ab4a50 {
+clone $C141e2270 {
    xpos -150
    ypos -970
    selected false
   }
-clone $C7ac13f0 {
+clone $C141eeb20 {
    xpos -150
    ypos -928
    selected false
   }
-clone $C7acd040 {
+clone $C141fa810 {
    xpos -150
    ypos -880
    selected false
   }
-clone $C7ad8cf0 {
+clone $C14206440 {
    xpos -150
    ypos -826
    selected false
@@ -1136,22 +1142,22 @@ clone $C7ad8cf0 {
    xpos 400
    ypos -1024
   }
-clone $C7ab4a50 {
+clone $C141e2270 {
    xpos 400
    ypos -970
    selected false
   }
-clone $C7ac13f0 {
+clone $C141eeb20 {
    xpos 400
    ypos -928
    selected false
   }
-clone $C7acd040 {
+clone $C141fa810 {
    xpos 400
    ypos -880
    selected false
   }
-clone $C7ad8cf0 {
+clone $C14206440 {
    xpos 400
    ypos -826
    selected false
@@ -1293,11 +1299,11 @@ clone $C7ad8cf0 {
   inputs 2
   mix {{SlugImage_ctrl}}
   name Merge2
+  selected true
   xpos -150
   ypos 342
  }
-set N7d83c80 [stack 0]
-push $N76f72f0
+push $Nef049e0
  Dot {
   name Dot1
   xpos -226
@@ -1326,13 +1332,5 @@ push $N76f72f0
   name Output1
   xpos -480
   ypos 590
- }
-push $N7d83c80
- Viewer {
-  viewerProcess rec709
-  input_process false
-  name Viewer1
-  xpos -40
-  ypos 385
  }
 end_group

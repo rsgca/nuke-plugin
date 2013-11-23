@@ -2,9 +2,9 @@ set cut_paste_input [stack 0]
 version 6.3 v4
 BackdropNode {
  inputs 0
- name BackdropNode1
+ name AdvancedDespill
  tile_color 0x7171c600
- label "advanced\ndespill"
+ label ""
  note_font_size 22
  selected true
  xpos -272

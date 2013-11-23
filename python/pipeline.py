@@ -56,6 +56,7 @@ def customWrite(server = 'file', folder = 'Comp', extension = 'exr', relative = 
     w["file_type"].setValue(extension)
     w["beforeRender"].setValue("pipeline.createWriteDir()")
     w["label"].setValue(server.upper())
+    w["metadata"].setValue(2)
 
     # MOV
     if extension == "mov":

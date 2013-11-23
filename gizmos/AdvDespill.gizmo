@@ -1,0 +1,167 @@
+#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
+version 7.0 v8
+Gizmo {
+ addUserKnob {20 AdvDespill t "AdvDespill does a better job of maintaining original luminance values."}
+ addUserKnob {4 screentype l "screen type" M {green blue "" "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {26 author -STARTLINE T "Charles Lai, Ryan Epp and Richard Greenwood"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -480
+  ypos -202
+ }
+ Dot {
+  name Dot4
+  xpos -446
+  ypos -150
+ }
+set N89cc660 [stack 0]
+ Dot {
+  name Dot5
+  xpos -556
+  ypos -150
+ }
+push $N89cc660
+ Dot {
+  name Dot1
+  xpos -336
+  ypos -150
+ }
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  show "Final Result"
+  unPreMultiply false
+  screenColour {0 0 1}
+  screenGain 1
+  screenBalance 0.95
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 0
+  screenClipMin 0
+  screenClipMax 1
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent None
+  outsideComponent None
+  cacheBreaker true
+  name Blue
+  xpos -370
+  ypos -82
+ }
+push $N89cc660
+ OFXuk.co.thefoundry.keylight.keylight_v201 {
+  show "Final Result"
+  unPreMultiply false
+  screenColour {0 1 0}
+  screenGain 1
+  screenBalance 0.5
+  alphaBias {0.5 0.5 0.5}
+  despillBias {0.5 0.5 0.5}
+  gangBiases true
+  preBlur 0
+  "Screen Matte" 0
+  screenClipMin 0
+  screenClipMax 1
+  screenClipRollback 0
+  screenGrowShrink 0
+  screenSoftness 0
+  screenDespotBlack 0
+  screenDespotWhite 0
+  screenReplaceMethod "Soft Colour"
+  screenReplaceColour {0.5 0.5 0.5}
+  Tuning 0
+  midPoint 0.5
+  lowGain 1
+  midGain 1
+  highGain 1
+  "Inside Mask" 0
+  sourceAlphaHandling Ignore
+  insideReplaceMethod "Soft Colour"
+  insideReplaceColour {0.5 0.5 0.5}
+  Crops 0
+  SourceXMethod Colour
+  SourceYMethod Colour
+  SourceEdgeColour 0
+  SourceCropL 0
+  SourceCropR 1
+  SourceCropB 0
+  SourceCropT 1
+  balanceSet false
+  insideComponent None
+  outsideComponent None
+  cacheBreaker true
+  name Green
+  xpos -480
+  ypos -82
+ }
+ Switch {
+  inputs 2
+  which {{screentype}}
+  name Switch1
+  xpos -480
+  ypos -34
+ }
+ Dot {
+  name Dot6
+  xpos -446
+  ypos 18
+ }
+set N8af7630 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos -590
+  ypos 38
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -590
+  ypos 86
+ }
+ Clamp {
+  name Clamp1
+  xpos -590
+  ypos 128
+ }
+push $N8af7630
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos -480
+  ypos 182
+ }
+ Output {
+  name Output1
+  xpos -480
+  ypos 278
+ }
+end_group
