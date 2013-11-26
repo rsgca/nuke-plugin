@@ -39,6 +39,7 @@ Gizmo {
  addUserKnob {20 endGroup_2 l endGroup n -1}
  addUserKnob {26 ""}
  addUserKnob {3 SlateVisibleFrame_ctrl l "Visible Frame" -STARTLINE}
+ SlateVisibleFrame_ctrl 40
  addUserKnob {20 Setup}
  addUserKnob {41 font l Font T native_font.font}
  addUserKnob {1 Filename_ctrl l Filename}
