@@ -43,7 +43,7 @@ n=m.addMenu("Transform", icon=":qrc/images/ToolbarTransform.png")
 n.addCommand("SmartPin", "nuke.createNode('SmartPin')", icon="ConerPin.png")
 
 n=m.addMenu("Generate")
-n.addCommand("Random", "nuke.createNode('Random')", index=3, icon='smokey-ryan.png')
+n.addCommand("Random", "nuke.createNode('RandomWave')", index=3, icon='smokey-ryan.png')
 
 # MENUS
 # ////////////////////////////////////////////////////////////////////////////////
@@ -77,6 +77,8 @@ m.addCommand('Collect Files', 'collectFiles.collectFiles()')
 import revealInOS
 m.addCommand('Reveal In Finder','revealInOS.revealInOS()', icon='Read.png')
 m.addSeparator()
+import mochaToNuke
+m.addCommand('Mocha To Nuke', 'mochaToNuke.mochaToNuke()')
 
 #Templates
 
@@ -85,7 +87,6 @@ tempPath = [s for s in nuke.pluginPath() if 'templates' in s]
 m = menubar.addMenu("&Templates", index=7)
 
 m.addCommand("Additive Key", "nuke.nodePaste( '%s/additive_key.nk' % (tempPath[0]) )", index=1)
-# m.addCommand("Advanced Despill", "nuke.nodePaste('%s/advanced_despill.nk' % (tempPath[0]))", index=2)
 m.addCommand("Advanced Despill", "nuke.createNode('AdvDespill')", index=2, icon="Sphere.png")
 m.addCommand("AOV", "nuke.nodePaste('%s/AOVs.nk' % (tempPath[0]))", index=3)
 m.addCommand("Fine Key", "nuke.nodePaste('%s/fine_key.nk' % (tempPath[0]))", index=4)

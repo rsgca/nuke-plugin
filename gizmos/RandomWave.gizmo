@@ -1,0 +1,26 @@
+#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
+version 7.0 v8
+Gizmo {
+ inputs 0
+ label "\[value number]\t"
+ addUserKnob {20 Random}
+ addUserKnob {7 number}
+ number {{"random(x*frequency-phase)*(this.max - this.min) + this.min"}}
+ addUserKnob {26 ""}
+ addUserKnob {16 frequency}
+ frequency 0.5
+ addUserKnob {7 max t "The number is less than max. The amplitude of the wave is (max-min)/2." R 0 100}
+ max 1
+ addUserKnob {7 min t "number is greater than min" R 0 100}
+ addUserKnob {7 phase t "This offsets the wave along x" R 0 100}
+ addUserKnob {22 Randomize l "Randomize Seed" t "Sets phase to a random number between 0 and 100." -STARTLINE T "from random import randint\n\nnuke.thisNode()\['phase'].setValue(randint(0,100))"}
+ addUserKnob {26 ""}
+ addUserKnob {26 attribution l "" +STARTLINE T "v1 rsgca"}
+}
+ Output {
+  inputs 0
+  name Output1
+  xpos -40
+  ypos -34
+ }
+end_group
