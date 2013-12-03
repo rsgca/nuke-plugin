@@ -9,11 +9,11 @@ m.addCommand("Owerlays", "nuke.createNode('Overlays')", index=2, icon="slate.png
 m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
-n.addCommand("Write EXR File Server", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
-# n.addCommand("Write EXR Review", "pipeline.customWrite(server = 'review', extension = 'exr')", index=2, icon="Write.png")
+# n.addCommand("Write EXR File Server", "pipeline.customWriteOLD(extension = 'exr')", index=1, icon="Write.png")
+n.addCommand("Write EXR (relative)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
 
 if (nuke.env['LINUX'] != 1):
-	n.addCommand("Write MOV File Server", "pipeline.customWrite('file', 'Review', 'mov' )", index=4, icon="Write.png")
+	n.addCommand("Write MOV (relative)", "pipeline.customWrite(folder = 'Review', extension = 'mov' )", index=4, icon="Write.png")
 
 n=m.addMenu("LUT", icon=":qrc/images/Toolbar3DLUT.png")
 
@@ -35,7 +35,7 @@ n.addCommand("Directional Blur", "nuke.createNode('directionalBlur_rk')", icon="
 n.addCommand("Bokeh Blur", "nuke.createNode('BokehBlur_4')", icon=":qrc/images/ToolbarFilter.png")
 
 n=m.addMenu("Grain", icon="grain.png")
-n.addCommand("REDNoise4", "nuke.createNode('REDNoise4')", index=1, icon="red-noise.png")
+n.addCommand("REDNoise5", "nuke.createNode('REDNoise5')", index=1, icon="red-noise.png")
 n.addCommand("GrainEdge", "nuke.createNode('GrainEdge')", index=2, icon="grain.png")
 n.addCommand("GrainControl", "nuke.createNode('GrainControl')", index=3, icon="grain.png")
 

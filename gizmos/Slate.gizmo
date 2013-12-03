@@ -7,7 +7,7 @@ Gizmo {
  mapsize {0.15 0.15}
  addUserKnob {20 Slate}
  addUserKnob {1 Project_ctrl l "Project Title"}
- Project_ctrl "Arctic Air S3"
+ Project_ctrl "\[getenv NUKE_PROJECT]"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
  ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
  addUserKnob {4 Artist_ctrl l Artist M {-- "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Richard Greenwood" "Ryan Epp" "Subodh Singh"}}
@@ -73,7 +73,7 @@ Gizmo {
   ypos -802
   addUserKnob {20 User}
   addUserKnob {2 font}
-  font "\[getenv NUKE_PATH]/fonts/FreeSans.ttf"
+  font "\[getenv NUKE_PATH $env(HOME)/.nuke]/fonts/FreeSans.ttf"
   addUserKnob {14 size R 0 100}
   size {{root.format.height/1080*40 i}}
  }

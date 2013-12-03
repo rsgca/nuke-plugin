@@ -1,0 +1,238 @@
+#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
+version 7.0 v8
+Gizmo {
+tile_color 0x7a2828ff
+note_font Verdana
+mapsize {0.15 0.15}
+addUserKnob {20 RedNoise t "Node to add looped plate RED camera noise to clean elements / degrained stills / DMPs and CG. Default values should work fine but if tweaks are needed, work your way down from top to bottom."}
+addUserKnob {20 Softness n 1}
+Softness 0
+addUserKnob {41 redsize l "red size" t "Adjusts blur amount to just the red channel. The default of 0 should work just fine so need to to play with it." T Blur4.size}
+addUserKnob {41 greensize l "green size" t "Adjusts blur amount to just the green channel. The default of 0 should work just fine so need to to play with it." T Blur5.size}
+addUserKnob {41 bluesize l "blue size" t "Adjusts blur amount to just the blue channel. The default of 0 should work just fine so need to to play with it." T Blur6.size}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 Intensity n 1}
+Intensity 0
+addUserKnob {7 CNIred l red t "Adjusts intensity amount to just the red channel. Multiplies the grain sample loop to give a more or less pronounced look to the grain. Default value is 1." R 0 4}
+CNIred 1
+addUserKnob {7 CNIgreen l green t "Adjusts intensity amount to just the green channel. Multiplies the grain sample loop to give a more or less pronounced look to the grain. Default value is 1." R 0 4}
+CNIgreen 1
+addUserKnob {7 CNIblue l blue t "Adjusts intensity amount to just the blue channel. Multiplies the grain sample loop to give a more or less pronounced look to the grain. Default value is 1." R 0 4}
+CNIblue 1
+addUserKnob {41 white l master T Grade1.white}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 SensorResponse_1 l "Sensor Response" n 1}
+SensorResponse_1 0
+addUserKnob {7 SRlow l low t "Sensor Response luma-matte adjustments. Low influences shadow portions of the image, move the slider to higher values to exclude grain from these dark portions. " R -1 0.4}
+SRlow 0.12
+addUserKnob {7 SRhigh l high t "Sensor Response luma-matte adjustments. High influences the mid and high portions of the image, move the slider to higher values to reduce grain in these areas." R 0.4 1}
+SRhigh 0.47
+addUserKnob {41 gamma t "Sensor response is the luminance adjusted influence on the grain. Highs, lows and mids have different apparent amounts of grain.\n\nGamma controls the mid region of the luma-matte. Currenlty the default value of 1 is working well, no need to change." T Grade3.gamma}
+addUserKnob {41 mix l "overall influence" t "Sensor response is the luminance adjusted influence on the grain. Highs, lows and mids have different apparent amounts of grain.\n\nOverall influence is the amount that the luma-matte is influencing the grain loop." T Merge9.mix}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 MasterAmount_1 l "Master Amount" n 1}
+addUserKnob {41 mastermix l mix t "Mix the amount of grain being added. 1 is %100 on and 0 is nothing being added." T Merge8.mix}
+addUserKnob {20 endGroup_3 l endGroup n -1}
+addUserKnob {26 ""}
+addUserKnob {6 PreMultSwitch l "Use matte channel" +STARTLINE}
+addUserKnob {6 invertAlpha l "Invert matte" -STARTLINE}
+addUserKnob {20 Setup}
+addUserKnob {41 file T Red_Noise.file}
+addUserKnob {26 ""}
+addUserKnob {26 ModifiedBy l "Updated by" T "Richard Greenwood"}
+}
+Input {
+inputs 0
+name Input1
+xpos -370
+ypos -418
+}
+Invert {
+channels alpha
+name Invert1
+xpos -370
+ypos -376
+disable {{!invertAlpha}}
+}
+Dot {
+name Dot5
+xpos -336
+ypos -294
+}
+set N71c5fb0 [stack 0]
+Dot {
+name Dot2
+xpos -336
+ypos -222
+}
+set N71ca220 [stack 0]
+Unpremult {
+name Unpremult1
+xpos -480
+ypos -226
+disable {{curve i}}
+}
+set N71ce320 [stack 0]
+Dot {
+name Dot9
+xpos -446
+ypos 258
+}
+push $N71ce320
+push $N71c5fb0
+Dot {
+name Dot1
+xpos -666
+ypos -294
+}
+Switch {
+inputs 2
+which {{Switch1.which i}}
+name Switch2
+xpos -700
+ypos -226
+}
+Dot {
+name Dot7
+xpos -886
+ypos -222
+}
+Colorspace {
+colorspace_out CIE-Lab
+name Colorspace1
+xpos -920
+ypos -106
+}
+Grade {
+blackpoint {{SRlow i}}
+whitepoint {{SRhigh i}}
+white_clamp true
+name Grade3
+xpos -920
+ypos -82
+}
+Shuffle {
+green red
+blue red
+alpha red
+name Shuffle1
+xpos -920
+ypos -34
+}
+Dot {
+name Dot10
+xpos -886
+ypos 162
+}
+Read {
+inputs 0
+file "\[getenv NUKE_PATH $env(HOME)/.nuke]/gizmos/RedNoise/2048x1152/RedNoise_2048x1152.####.exr"
+format "2048 1152 0 0 2048 1152 1 Final_Format"
+before loop
+last 17
+after loop
+origlast 17
+origset true
+version 1
+colorspace linear
+name Red_Noise
+tile_color 0xbc01ff
+xpos -700
+ypos -139
+}
+Grade {
+multiply {{CNIred i} {CNIgreen i} {CNIblue i} 1}
+black_clamp false
+name Grade1
+xpos -700
+ypos -34
+}
+Blur {
+channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+name Blur4
+xpos -700
+ypos 8
+}
+Blur {
+channels {-rgba.red rgba.green -rgba.blue rgba.alpha}
+name Blur5
+xpos -700
+ypos 56
+}
+Blur {
+channels {-rgba.red -rgba.green rgba.blue rgba.alpha}
+name Blur6
+xpos -700
+ypos 104
+}
+Merge2 {
+inputs 2
+operation mask
+bbox B
+name Merge9
+xpos -700
+ypos 158
+}
+Dot {
+name Dot6
+xpos -666
+ypos 210
+}
+set N7261f90 [stack 0]
+Dot {
+name Dot8
+xpos -556
+ypos 210
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+xpos -590
+ypos 248
+disable {{curve i}}
+}
+Premult {
+name Premult1
+xpos -590
+ypos 302
+}
+Dot {
+name Dot4
+xpos -556
+ypos 330
+}
+push $N7261f90
+Switch {
+inputs 2
+which {{PreMultSwitch i}}
+name Switch1
+xpos -700
+ypos 326
+}
+BlackOutside {
+name BlackOutside1
+xpos -700
+ypos 374
+}
+Dot {
+name Dot3
+xpos -666
+ypos 402
+}
+push $N71ca220
+Merge2 {
+inputs 2
+operation plus
+Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+name Merge8
+xpos -370
+ypos 398
+}
+Output {
+name Output1
+xpos -370
+ypos 470
+}
+end_group

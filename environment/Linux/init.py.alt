@@ -1,0 +1,10 @@
+import os, nuke
+
+#AA3
+# plugin = '/media/Projects/Arctic_Air_3/assets/Nuke/nuke-plugin'
+#WCTH
+plugin = '/media/Projects/When_Calls_The_Heart/assets/Nuke/nuke-plugin'
+
+nuke.pluginAddPath(plugin)
+os.environ['NUKE_PATH'] = plugin
+
