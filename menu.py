@@ -10,10 +10,10 @@ m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
 # n.addCommand("Write EXR File Server", "pipeline.customWriteOLD(extension = 'exr')", index=1, icon="Write.png")
-n.addCommand("Write EXR (relative)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
+n.addCommand("Write EXR (Comp)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
 
 if (nuke.env['LINUX'] != 1):
-	n.addCommand("Write MOV (relative)", "pipeline.customWrite(folder = 'Review', extension = 'mov' )", index=4, icon="Write.png")
+	n.addCommand("Write MOV (Review)", "pipeline.customWrite(folder = 'Review', extension = 'mov' )", index=4, icon="Write.png")
 
 n=m.addMenu("LUT", icon=":qrc/images/Toolbar3DLUT.png")
 
