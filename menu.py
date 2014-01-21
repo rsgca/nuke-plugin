@@ -2,14 +2,20 @@ import nuke, pipeline, setProjectFrameRange
 
 # TOOLS
 # ////////////////////////////////////////////////////////////////////////////////
-menubar=nuke.menu("Nodes")
-m=menubar.addMenu("Tools")
+toolbar=nuke.menu("Nodes")
+
+# add shortcuts to standard menus
+toolbar.addCommand("Transform/Tracker", "nuke.createNode(\"Tracker4\")", "a", icon="Tracker.png")
+toolbar.addCommand("Transform/TransformMasked", "nuke.createNode(\"TransformMasked\")", "alt+t", icon="2DMasked.png")
+
+# custom tools
+m=toolbar.addMenu("Tools")
+
 m.addCommand("Slate", "nuke.createNode('Slate')", index=1, icon="slate.png")
 m.addCommand("Owerlays", "nuke.createNode('Overlays')", index=2, icon="slate.png")
 m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
-# n.addCommand("Write EXR File Server", "pipeline.customWriteOLD(extension = 'exr')", index=1, icon="Write.png")
 n.addCommand("Write EXR (Comp)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
 
 if (nuke.env['LINUX'] != 1):
@@ -44,6 +50,7 @@ n.addCommand("SmartPin", "nuke.createNode('SmartPin')", icon="ConerPin.png")
 
 n=m.addMenu("Generate")
 n.addCommand("Random", "nuke.createNode('RandomWave')", index=3, icon='smokey-ryan.png')
+
 
 # MENUS
 # ////////////////////////////////////////////////////////////////////////////////

@@ -34,7 +34,7 @@ class SmedgeRenderJob (object):
     def __init__(self):
         # basic variables used by the script
         self.nukeScriptPath = nuke.Root().name()
-        self.nukeFromFrame = nuke.Root().firstFrame()
+        self.nukeFromFrame = nuke.Root().firstFrame()-1
         self.nukeToFrame = nuke.Root().lastFrame()
 
         # determine if there are selected write nodes

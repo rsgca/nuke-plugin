@@ -39,7 +39,7 @@ Gizmo {
  addUserKnob {20 endGroup_2 l endGroup n -1}
  addUserKnob {26 ""}
  addUserKnob {3 SlateVisibleFrame_ctrl l "Visible Frame" -STARTLINE}
- SlateVisibleFrame_ctrl 40
+ SlateVisibleFrame_ctrl {{root.first_frame-1}}
  addUserKnob {20 Setup}
  addUserKnob {41 font l Font T native_font.font}
  addUserKnob {1 Filename_ctrl l Filename}
@@ -73,7 +73,7 @@ Gizmo {
   ypos -802
   addUserKnob {20 User}
   addUserKnob {2 font}
-  font "\[getenv NUKE_PATH $env(HOME)/.nuke]/fonts/FreeSans.ttf"
+  font "\[getenv NUKE_PATH \$env(HOME)/.nuke]/fonts/FreeSans.ttf"
   addUserKnob {14 size R 0 100}
   size {{root.format.height/1080*40 i}}
  }
@@ -83,21 +83,13 @@ Gizmo {
   xpos -370
   ypos -34
  }
- ModifyMetaData {
-  metadata {
-   {set exr/reelID "\[file rootname \[file tail \[value root.name]]]"}
-  }
-  name ModifyMetaData1
-  xpos -370
-  ypos 16
- }
  Reformat {
   black_outside true
   name Reformat1
   xpos -370
   ypos 62
  }
-set Nef049e0 [stack 0]
+set N8f09260 [stack 0]
  Shuffle {
   alpha white
   name Shuffle2
@@ -712,7 +704,7 @@ set Nef049e0 [stack 0]
    xpos -700
    ypos -970
   }
-  set C141e2270 [stack 0]
+  set C91fa780 [stack 0]
   Transform {
    scale {{1/24 i} 1}
    name Transform8
@@ -720,7 +712,7 @@ set Nef049e0 [stack 0]
    xpos -700
    ypos -928
   }
-  set C141eeb20 [stack 0]
+  set C92070b0 [stack 0]
   Transform {
    scale {1 0.875}
    name Transform4
@@ -728,13 +720,13 @@ set Nef049e0 [stack 0]
    xpos -700
    ypos -880
   }
-  set C141fa810 [stack 0]
+  set C9212e10 [stack 0]
   Reformat {
    name Reformat7
    xpos -700
    ypos -828
   }
-  set C14206440 [stack 0]
+  set C921e970 [stack 0]
   Text {
    message "Macbeth "
    font "\[value native_font.font]"
@@ -926,22 +918,22 @@ set Nef049e0 [stack 0]
    xpos -150
    ypos -1024
   }
-clone $C141e2270 {
+clone $C91fa780 {
    xpos -150
    ypos -970
    selected false
   }
-clone $C141eeb20 {
+clone $C92070b0 {
    xpos -150
    ypos -928
    selected false
   }
-clone $C141fa810 {
+clone $C9212e10 {
    xpos -150
    ypos -880
    selected false
   }
-clone $C14206440 {
+clone $C921e970 {
    xpos -150
    ypos -826
    selected false
@@ -1143,22 +1135,22 @@ clone $C14206440 {
    xpos 400
    ypos -1024
   }
-clone $C141e2270 {
+clone $C91fa780 {
    xpos 400
    ypos -970
    selected false
   }
-clone $C141eeb20 {
+clone $C92070b0 {
    xpos 400
    ypos -928
    selected false
   }
-clone $C141fa810 {
+clone $C9212e10 {
    xpos 400
    ypos -880
    selected false
   }
-clone $C14206440 {
+clone $C921e970 {
    xpos 400
    ypos -826
    selected false
@@ -1300,11 +1292,10 @@ clone $C14206440 {
   inputs 2
   mix {{SlugImage_ctrl}}
   name Merge2
-  selected true
   xpos -150
   ypos 342
  }
-push $Nef049e0
+push $N8f09260
  Dot {
   name Dot1
   xpos -226
@@ -1324,14 +1315,24 @@ push $Nef049e0
   xpos -480
   ypos 494
  }
+ ModifyMetaData {
+  metadata {
+   {set exr/reelID "\[file rootname \[file tail \[value root.name]]]"}
+   {set exr/ColorSpace/Transfer Rec709}
+  }
+  name ModifyMetaData1
+  selected true
+  xpos -480
+  ypos 542
+ }
  Reformat {
   name Reformat2
   xpos -480
-  ypos 542
+  ypos 590
  }
  Output {
   name Output1
   xpos -480
-  ypos 590
+  ypos 638
  }
 end_group
