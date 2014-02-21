@@ -1,4 +1,4 @@
-import nuke, pipeline, setProjectFrameRange
+import nuke, pipeline, setProjectFrameRange, saveFirstComp
 
 # TOOLS
 # ////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +39,7 @@ n.addCommand("EdgeExtend", "nuke.createNode('EdgeExtend')", icon=":qrc/images/To
 n.addCommand("Chromatic Aberation", "nuke.createNode('akromatism_stRub')", icon=":qrc/images/ToolbarFilter.png")
 n.addCommand("Directional Blur", "nuke.createNode('directionalBlur_rk')", icon=":qrc/images/ToolbarFilter.png")
 n.addCommand("Bokeh Blur", "nuke.createNode('BokehBlur_4')", icon=":qrc/images/ToolbarFilter.png")
+n.addCommand("VignetteMask", "nuke.createNode('VignetteMask')","",icon="VignetteMask.png")
 
 n=m.addMenu("Grain", icon="grain.png")
 n.addCommand("REDNoise5", "nuke.createNode('REDNoise5')", index=1, icon="red-noise.png")
@@ -58,6 +59,7 @@ menubar=nuke.menu("Nuke")
 
 m=menubar.addMenu("&File")
 #Version up Comp number
+m.addCommand("Save First Comp", "saveFirstComp.callPanel()", "^#S", index=4)
 m.addCommand("Save New Comp Version", "pipeline.script_comp_version_up()", index=5 )
 m.addCommand("Save New Anim Version", "pipeline.script_anim_version_up()", index=6 )
 
