@@ -59,7 +59,7 @@ menubar=nuke.menu("Nuke")
 
 m=menubar.addMenu("&File")
 #Version up Comp number
-m.addCommand("Save First Comp", "saveFirstComp.callPanel()", "^#S", index=4)
+m.addCommand("Save First Comp", "saveFirstComp.callPanel()", index=4)
 m.addCommand("Save New Comp Version", "pipeline.script_comp_version_up()", index=5 )
 m.addCommand("Save New Anim Version", "pipeline.script_anim_version_up()", index=6 )
 

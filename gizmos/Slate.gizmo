@@ -10,7 +10,7 @@ Gizmo {
  Project_ctrl "\[getenv NUKE_PROJECT]"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
  ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
- addUserKnob {4 Artist_ctrl l Artist M {-- "Alan Harrison" "Carlos Guzman" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Rajesh Madishetty" "Richard Greenwood" "Ryan Epp" "Subodh Singh"}}
+ addUserKnob {4 Artist_ctrl l Artist M {-- "Alan Harrison" "Carlos Guzman" "Claude Theriault" "Geoffrey Hancock" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Kelly Eckstein" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Rajesh Madishetty" "Richard Greenwood" "Ryan Epp" "Subodh Singh"}}
  addUserKnob {1 Vendor_ctrl l Vendor -STARTLINE}
  Vendor_ctrl "In House"
  addUserKnob {20 Versions l Version n 1}
