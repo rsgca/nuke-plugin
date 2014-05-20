@@ -1,5 +1,5 @@
-#! /usr/local/Nuke7.0v8/Nuke7.0 -nx
-version 7.0 v8
+#! /usr/local/Nuke8.0v3/libnuke-8.0.v3.so -nx
+version 8.0 v3
 Gizmo {
  tile_color 0x910c00ff
  note_font Verdana
@@ -9,10 +9,10 @@ Gizmo {
  addUserKnob {1 Project_ctrl l "Project Title"}
  Project_ctrl "\[getenv NUKE_PROJECT]"
  addUserKnob {1 ShotName_ctrl l "Shot Name"}
- ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 0 2 ]"
+ ShotName_ctrl "\[lrange \[split \[value Filename_ctrl] \"_\"] 1 1 ]"
  addUserKnob {4 Artist_ctrl l Artist M {-- "Alan Harrison" "Carlos Guzman" "Claude Theriault" "Geoffrey Hancock" "Gil Valencia" "Gustavo Kasai" "Juan Rodriguez" "Karthik Kesiraju" "Kelly Eckstein" "Matt Choy" "Max Schroeder" "Michael Balzer" "Mike Wearing" "Miguel Ponce" "Rajavel Loganathan" "Rajesh Madishetty" "Richard Greenwood" "Ryan Epp" "Subodh Singh"}}
  addUserKnob {1 Vendor_ctrl l Vendor -STARTLINE}
- Vendor_ctrl "In House"
+ Vendor_ctrl "\[getenv VENDOR]"
  addUserKnob {20 Versions l Version n 1}
  Versions 0
  addUserKnob {1 CompVersion_ctrl l Comp}
@@ -46,6 +46,7 @@ Gizmo {
  Filename_ctrl "\[file rootname \[file tail \[value root.name]]]"
  addUserKnob {3 thumbnailOffset_ctrl l "Thumbnail Offset"}
  thumbnailOffset_ctrl -1
+ addUserKnob {6 ModifyMeta_ctrl l "Modify Meta" +STARTLINE}
  addUserKnob {6 SlugImage_ctrl l "Show Oscar" +STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {26 Author -STARTLINE T "Richard Greenwod"}
@@ -89,7 +90,7 @@ Gizmo {
   xpos -370
   ypos 62
  }
-set N8f09260 [stack 0]
+set N4dfbe90 [stack 0]
  Shuffle {
   alpha white
   name Shuffle2
@@ -106,6 +107,7 @@ set N8f09260 [stack 0]
  }
  TimeOffset {
   time_offset {{"\[value thumbnailOffset_ctrl]"}}
+  time ""
   name TimeOffset1
   xpos -480
   ypos 230
@@ -704,7 +706,7 @@ set N8f09260 [stack 0]
    xpos -700
    ypos -970
   }
-  set C91fa780 [stack 0]
+  set C5d56580 [stack 0]
   Transform {
    scale {{1/24 i} 1}
    name Transform8
@@ -712,7 +714,7 @@ set N8f09260 [stack 0]
    xpos -700
    ypos -928
   }
-  set C92070b0 [stack 0]
+  set C5d63630 [stack 0]
   Transform {
    scale {1 0.875}
    name Transform4
@@ -720,13 +722,13 @@ set N8f09260 [stack 0]
    xpos -700
    ypos -880
   }
-  set C9212e10 [stack 0]
+  set C5d6fa50 [stack 0]
   Reformat {
    name Reformat7
    xpos -700
    ypos -828
   }
-  set C921e970 [stack 0]
+  set C5d7bea0 [stack 0]
   Text {
    message "Macbeth "
    font "\[value native_font.font]"
@@ -918,22 +920,22 @@ set N8f09260 [stack 0]
    xpos -150
    ypos -1024
   }
-clone $C91fa780 {
+clone $C5d56580 {
    xpos -150
    ypos -970
    selected false
   }
-clone $C92070b0 {
+clone $C5d63630 {
    xpos -150
    ypos -928
    selected false
   }
-clone $C9212e10 {
+clone $C5d6fa50 {
    xpos -150
    ypos -880
    selected false
   }
-clone $C921e970 {
+clone $C5d7bea0 {
    xpos -150
    ypos -826
    selected false
@@ -1135,22 +1137,22 @@ clone $C921e970 {
    xpos 400
    ypos -1024
   }
-clone $C91fa780 {
+clone $C5d56580 {
    xpos 400
    ypos -970
    selected false
   }
-clone $C92070b0 {
+clone $C5d63630 {
    xpos 400
    ypos -928
    selected false
   }
-clone $C9212e10 {
+clone $C5d6fa50 {
    xpos 400
    ypos -880
    selected false
   }
-clone $C921e970 {
+clone $C5d7bea0 {
    xpos 400
    ypos -826
    selected false
@@ -1295,7 +1297,7 @@ clone $C921e970 {
   xpos -150
   ypos 342
  }
-push $N8f09260
+push $N4dfbe90
  Dot {
   name Dot1
   xpos -226
@@ -1318,12 +1320,12 @@ push $N8f09260
  ModifyMetaData {
   metadata {
    {set exr/reelID "\[file rootname \[file tail \[value root.name]]]"}
-   {set exr/ColorSpace/Transfer Rec709}
   }
   name ModifyMetaData1
   selected true
   xpos -480
   ypos 542
+  disable {{!parent.ModifyMeta_ctrl}}
  }
  Reformat {
   name Reformat2

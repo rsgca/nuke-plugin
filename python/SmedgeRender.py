@@ -132,7 +132,7 @@ class SmedgeRenderJob (object):
     # build and execute the command line
     def executeCmdJob(self):
         # filename fix for PC Farm
-        self.nukeScriptPath = self.nukeScriptPath.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace("/Volumes/Elements/", "Y:/").replace("/media/Elements/", "Y:/").replace("/Volumes/Review/", "X:/").replace("/media/Review/", "X:/")
+        #self.nukeScriptPath = self.nukeScriptPath.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace("/Volumes/Elements/", "Y:/").replace("/media/Elements/", "Y:/").replace("/Volumes/Review/", "X:/").replace("/media/Review/", "X:/")
         # get machine name
         creator = socket.gethostname()
 

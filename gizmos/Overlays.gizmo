@@ -35,7 +35,7 @@ Gizmo {
  SlateVisibleFrame_ctrl {{root.first_frame-1}}
  addUserKnob {20 Setup}
  addUserKnob {2 Font_ctrl l Font}
- Font_ctrl "\[getenv NUKE_PATH]/fonts/FreeSans.ttf"
+ Font_ctrl "\[getenv NUKE_PATH \$env(HOME)/.nuke]/fonts/FreeSans.ttf"
  addUserKnob {26 ""}
  addUserKnob {26 Author -STARTLINE T "Richard Greenwood"}
 }

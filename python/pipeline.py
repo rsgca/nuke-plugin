@@ -2,7 +2,7 @@ import os, nuke, nukescripts
 import sys, re
 
 # COMP UP
-# Versions up c01 and a01 in filenames
+# Versions up C01 and A01 in filenames
 # ////////////////////////////////////////////////////////////////////////////////
 
 def script_comp_version_up():
@@ -27,83 +27,45 @@ def script_anim_version_up():
 # ////////////////////////////////////////////////////////////////////////////////
 
 # Define function
-def customWrite(folder = 'Comp', extension = 'exr', relative = 1):
-
-	#variables
-	printf = '.%04d'
-	destination = '/media/Projects'
-	shot = [route()['shot'],'[file tail [file dirname [file dirname [value root.name]]]]']
-	filename = [route()['filename'], '[file rootname [file tail [value root.name]]]']
-
-	w = nuke.nodes.Write()
-	w.setInput(0, nuke.selectedNode())
-
-	w["file_type"].setValue(extension)
-	w["beforeRender"].setValue("pipeline.createWriteDir()")
-	w["label"].setValue(folder.upper())
-	w["file"].setValue('[value project_directory]' + folder + '/'+ filename[relative] + '/'+ filename[relative] + printf + '.' + extension)
-	w["colorspace"].setValue('rec709')
-
-	if extension == "mov":
-		w["codec"].setValue('AVdn')
-		w["writeTimeCode"].setValue('1')
-		w["settings"].setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
-		w["file"].setValue('[value project_directory]' + folder + '/'+ filename[relative] + '.' + extension)
-	elif extension == "exr":
-		w["metadata"].setValue(2)
-
-def route():
-	path = nuke.root().name()
-	p = re.compile('.*?/Arctic_Air_3/shots/(.*?)/(.*?)/Scripts/(.*?).nk')
-	m  = p.match (path)
-
-	r = { 'episode' : m.group(1), 'shot' : m.group(2), 'filename' : m.group(3) }
-
-	return r 
-
-
-# Define function
-def customWrite2(folder = 'Comp', extension = 'exr', relative = 1):
+def customWrite(folder = 'Comp', extension = 'dpx', relative = 1):
 
     #variables
     printf = '.%04d'
-    destination = '/media/Projects'
-    proj_dir = [route2()['proj_dir'], '[value project_directory]']
-    shot = [route2()['shot'],'[file tail [file dirname [file dirname [value root.name]]]]']
-    filename = [route2()['filename'], '[file rootname [file tail [value root.name]]]']
+    project_dir = [route()['project_dir'], '[value project_directory]']
+    filename = [route()['filename'], '[file rootname [file tail [value root.name]]]']
 
     w = nuke.nodes.Write()
     w.setInput(0, nuke.selectedNode())
 
-    # add new knobs
-    # k = nuke.String_Knob("folder", "Folder")
-    # w.addKnob(k)
-    # w["folder"].setValue(folder)
-
-    w["file_type"].setValue(extension)
-    w["beforeRender"].setValue("pipeline.createWriteDir()")
-    w["label"].setValue(folder.upper())
-    w["file"].setValue(os.path.join (proj_dir[relative],folder,filename[relative],filename[relative] + printf + '.' + extension))
-    w["colorspace"].setValue('rec709')
+    w['file_type'].setValue(extension)
+    w['beforeRender'].setValue("pipeline.createWriteDir()")
+    w['label'].setValue(folder.upper())
+    w['file'].setValue(os.path.join(project_dir[relative], folder, filename[relative], filename[relative] + printf + '.' + extension))
+    
+    if nuke.env['LINUX']:
+        if folder == 'Review':
+            w['afterRender'].setValue('mrender.mconvert()')
+            w['colorspace'].setValue('rec709')
 
     if extension == "mov":
-        w["codec"].setValue('AVdn')
-        w["writeTimeCode"].setValue('1')
-        w["settings"].setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
-        w["file"].setValue(os.path.join(proj_dir[relative],folder,filename[relative] + '.' + extension))
+        w['codec'].setValue('AVdn')
+        w['writeTimeCode'].setValue('1')
+        #1080p 36kbps
+        w['settings'].setValue('000000000000000000000000000001d27365616e000000010000000100000000000001be76696465000000010000000f00000000000000227370746c0000000100000000000000004156646e000000000020000003ff000000207470726c000000010000000000000000000000000017f9db00000000000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000000000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000004156494400000014636c757400000001000000000000000000000038636465630000000100000000000000004156494400000001000000020000000100000011000000030000000000000000000000000000001c766572730000000100000000000000000003001c00010000')
+        w['file'].setValue(os.path.join(project_dir[relative], folder, filename[relative] + '.' + extension))
+        w['colorspace'].setValue('rec709')
     elif extension == "exr":
-        w["metadata"].setValue(2)
+        w['metadata'].setValue(2)
+    elif extension == "dpx":
+        w['transfer'].setValue('log')
 
-def route2():
-    scriptsFolder = os.path.basename(os.path.dirname(nuke.root().name()))
+def route():
     path = nuke.root().name()
-    p = re.compile('(.*)/([^/]*)/([^/]*)/'+scriptsFolder+'/(.*?).nk')
-    m  = p.match (path)
+    m = re.match('(.+)/(.+)/scripts/(.+).nk', path, re.IGNORECASE )
 
-    r = { 'proj_dir' : m.group(1), 'episode' : m.group(2), 'shot' : m.group(3), 'filename' : m.group(4) }
+    r = { 'project_dir' : m.group(1), 'shot' : m.group(2), 'filename' : m.group(3) }
 
     return r 
-
 
 # PATHS
 # ////////////////////////////////////////////////////////////////////////////////
@@ -120,36 +82,17 @@ def createWriteDir():
 		pass
 
 # FILENAME FIX
-def filenameFix(filename):
-	if nuke.env['WIN32']:
-		filename = filename.replace( "/Volumes/Projects/", "Z:/" ).replace("/media/Projects/", "Z:/").replace( "/Volumes/Elements/", "Y:/" ).replace("/media/Elements/", "Y:/").replace( "/Volumes/Review/", "X:/" ).replace("/media/Review/", "X:/")
-	elif nuke.env['MACOS']:
-		filename = filename.replace( "Z:/", "/Volumes/Projects/" ).replace( "/media/Projects/", "/Volumes/Projects/" ).replace( "X:/", "/Volumes/Review/" ).replace( "/media/Review/", "/Volumes/Review/" ).replace( "Y:/", "/Volumes/Elements/" ).replace( "/media/Elements/", "/Volumes/Elements/" )
-	elif nuke.env['LINUX']:
-		filename = filename.replace("Z:/", "/media/Projects/").replace("/Volumes/Projects/", "/media/Projects/").replace("X:/", "/media/Review/").replace("/Volumes/Review/", "/media/Review/").replace("Y:/", "/media/Elements/").replace("/Volumes/Elements/", "/media/Elements/")
-	return filename
+# def filenameFix(filename):
+# 	projects = { 'WIN32' : 'Z:/', 'MAXOS' : '/Volumes/Projects/', 'LINUX' : '/media/Projects/' }
+# 	elements = { 'WIN32' : 'Y:/', 'MAXOS' : '/Volumes/Elements/', 'LINUX' : '/media/Elements/' }
 
-nuke.addFilenameFilter(filenameFix)
-	
-# ADD FAVOURITE DIR
-project = 'Arctic_Air_3'
-vol = ''
-if nuke.env['LINUX']:
-	vol = '/media/Projects/'
-	vol2 = '/media/Elements/'
-	vol3 = '/media/Projects/Arctic_Air_3/editorial/from_vfx/'
-elif nuke.env['MACOS']:
-	vol = '/Volumes/Projects/'
-	vol2 = '/Volumes/Elements/'
-	vol3 = '/Volumes/Projects/Arctic_Air_3/editorial/from_vfx/'
-elif nuke.env['WIN32']:
-	vol = 'Z:/'
-	vol2 = 'Y:/'
-	vol3 = 'Z:/Projects/Arctic_Air_3/editorial/from_vfx/'
+# 	if nuke.env['WIN32']:
+# 		filename = filename.replace( projects['MACOS'], projects['WIN32'] ).replace( projects['LINUX'], projects['WIN32'] ).replace( elements['MACOS'], elements['WIN32'] ).replace( elements['LINUX'], elements['WIN32'] )
+# 	elif nuke.env['MACOS']:
+# 		filename = filename.replace( projects['WIN32'], projects['MACOS'] ).replace( projects['LINUX'], projects['MACOS'] ).replace( elements['WIN32'], elements['MACOS'] ).replace( elements['LINUX'], elements['MACOS'] )
+# 	elif nuke.env['LINUX']:
+# 		filename = filename.replace( projects['WIN32'], projects['LINUX'] ).replace( projects['MACOS'], projects['LINUX'] ).replace( elements['WIN32'], elements['LINUX'] ).replace( elements['MACOS'], elements['LINUX'] )
+# 	return filename
 
-nuke.addFavoriteDir('Project', vol)
-nuke.addFavoriteDir('Shots', vol + project + '/shots/')
-nuke.addFavoriteDir('Assets', vol + project + '/assets/')
-nuke.addFavoriteDir('Elements', vol2)
-nuke.addFavoriteDir('Editorial', vol3)
+# nuke.addFilenameFilter(filenameFix)
 

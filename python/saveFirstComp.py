@@ -1,8 +1,8 @@
 # @title saveFirstComp
 # @description Prompts the user to nuke save path based on read node
 # @author Richard Greenwood
-# @version 1
-# @compatible Nuke7
+# @version 1.1
+# @compatible Nuke8
 # @url www.richardgreenwood.ca
 
 import nuke, nukescripts, re, os
@@ -18,9 +18,9 @@ if nuke.env["gui"]:
 			#Set variables
 			self.initials = os.getenv('ARTIST', 'IH').upper()
 			self.path = self.readNode['file'].value()
-			self.ep_dir = route(self.path)['episode_dir']
+			self.parent_dir = route(self.path)['parent_dir']
 			self.shot = route(self.path)['shot']
-			self.script_dir = os.path.join (self.ep_dir, self.shot, 'Scripts')
+			self.script_dir = os.path.join (self.parent_dir, self.shot, 'Scripts')
 			self.filename = self.shot+'_C01_'+self.initials+'.nk'
 
 			self.newPath = os.path.join( self.script_dir, self.filename)
@@ -56,10 +56,9 @@ def callPanel():
 		nuke.message("Selected node must be a Read node.")
 
 def route(path):
-	p = re.compile('(.*)/(.*)/Plates')
-	m  = p.match (path)
+	m = re.match('(.*)/(.*)/plates', path, re.IGNORECASE )
 
 	# return project directory
-	r = { 'episode_dir' : m.group(1), 'shot' : m.group(2) } 
+	r = { 'parent_dir' : m.group(1), 'shot' : m.group(2) } 
 
 	return r 

@@ -12,11 +12,14 @@ toolbar.addCommand("Transform/TransformMasked", "nuke.createNode(\"TransformMask
 m=toolbar.addMenu("Tools")
 
 m.addCommand("Slate", "nuke.createNode('Slate')", index=1, icon="slate.png")
-m.addCommand("Owerlays", "nuke.createNode('Overlays')", index=2, icon="slate.png")
+m.addCommand("Overlays", "nuke.createNode('Overlays')", index=2, icon="slate.png")
 m.addSeparator()
 
 n=m.addMenu("WRITE", icon="Write.png")
-n.addCommand("Write EXR (Comp)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
+# n.addCommand("Write EXR (Comp)", "pipeline.customWrite(extension = 'exr')", index=1, icon="Write.png")
+n.addCommand("Write DPX (Comp)", "pipeline.customWrite(extension = 'dpx')", index=1, icon="Write.png")
+n.addCommand("Write DPX (Plates)", "pipeline.customWrite(folder = 'Plates', extension = 'dpx')", index=1, icon="Write.png")
+n.addCommand("Write DPX (Review)", "pipeline.customWrite(folder = 'Review', extension = 'dpx')", index=1, icon="Write.png")
 
 if (nuke.env['LINUX'] != 1):
 	n.addCommand("Write MOV (Review)", "pipeline.customWrite(folder = 'Review', extension = 'mov' )", index=4, icon="Write.png")
@@ -88,15 +91,3 @@ m.addCommand('Reveal In Finder','revealInOS.revealInOS()', icon='Read.png')
 m.addSeparator()
 import mochaToNuke
 m.addCommand('Mocha To Nuke', 'mochaToNuke.mochaToNuke()')
-
-#Templates
-
-tempPath = [s for s in nuke.pluginPath() if 'templates' in s]
-
-m = menubar.addMenu("&Templates", index=7)
-
-m.addCommand("Additive Key", "nuke.nodePaste( '%s/additive_key.nk' % (tempPath[0]) )", index=1)
-m.addCommand("Advanced Despill", "nuke.createNode('AdvDespill')", index=2, icon="Sphere.png")
-m.addCommand("AOV", "nuke.nodePaste('%s/AOVs.nk' % (tempPath[0]))", index=3)
-m.addCommand("Fine Key", "nuke.nodePaste('%s/fine_key.nk' % (tempPath[0]))", index=4)
-
