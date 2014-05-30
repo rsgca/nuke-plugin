@@ -36,6 +36,7 @@ nuke.knobDefault('Root.fps', '23.976')
 # LUTs
 # nuke.knobDefault('Viewer.viewerProcess', 'rec709')
 # nuke.knobDefault('monitorLut', 'rec709')
+nuke.knobDefault('int16Lut', os.getenv('TRANSFER'))
 nuke.knobDefault('logLut', os.getenv('TRANSFER'))
 
 nuke.ViewerProcess.register("Cineon", nuke.createNode, ("ViewerProcess_1DLUT", "current Cineon"))
