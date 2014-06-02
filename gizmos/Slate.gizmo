@@ -1,5 +1,5 @@
 #! /usr/local/Nuke8.0v3/libnuke-8.0.v3.so -nx
-version 8.0 v3
+version 8.0 v1
 Gizmo {
  tile_color 0x910c00ff
  note_font Verdana
